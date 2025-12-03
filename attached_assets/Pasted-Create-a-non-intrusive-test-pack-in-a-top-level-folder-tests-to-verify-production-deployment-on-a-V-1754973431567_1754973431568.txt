@@ -1,0 +1,108 @@
+Create a non-intrusive test pack in a top-level folder tests/ to verify production deployment on a VPS without changing app code.
+
+Goals (run via one command):
+
+Health checks (local port and domain)
+
+SSL & Nginx check
+
+Auth flow smoke (signup → login → logout) using Playwright (headless).
+
+DB connectivity (read & optional write test via DATABASE_URL)
+
+AI proxy test hitting an app endpoint (configurable) using server-side DEEPINFRA_API_KEY (no key printed).
+
+Light load test (30s) on the public URL.
+
+Assumptions
+
+App listens on PORT=3001 (from .env).
+
+Public domain: app.sukusuku.ai (override via env).
+
+You won’t change any app source; only add tests.
+
+Deliverables (create these files):
+
+tests/README.md – minimal instructions for local and VPS usage.
+
+tests/.env.ci.sample with these vars:
+
+ini
+Copy
+Edit
+# Networking
+NODE_PORT=3001
+PUBLIC_DOMAIN=app.sukusuku.ai
+# Auth test user
+TEST_EMAIL=tester+ci@sukusuku.ai
+TEST_PASSWORD=ChangeMe_123!
+# Endpoints to probe (edit to match app)
+HEALTH_PATH=/        # path that returns 200 when app is up
+LOGIN_PATH=/login    # page path for Playwright
+LOGOUT_PATH=/logout  # page path or button for Playwright
+# Optional API endpoints (if present)
+API_HEALTH=/api/health
+AI_TEST_ENDPOINT=/api/generate/text   # your app’s route that triggers DeepInfra
+# Database
+DATABASE_URL=postgres://appuser:password@127.0.0.1:5432/sukusuku
+RUN_DB_WRITE_TEST=false
+tests/install.sh – installs needed CLIs locally or on VPS: Node tools, Playwright (npx playwright install --with-deps), autocannon, psql client.
+
+tests/run_all.sh – orchestrates the whole suite:
+
+loads .env (fallback to .env.ci.sample)
+
+curl health on http://127.0.0.1:$NODE_PORT$HEALTH_PATH and https://$PUBLIC_DOMAIN$HEALTH_PATH
+
+if API_HEALTH set: curl -f https://$PUBLIC_DOMAIN$API_HEALTH
+
+DB check: run node tests/scripts/db_check.mjs (read-only; if RUN_DB_WRITE_TEST=true, create temp table, insert, delete, drop)
+
+AI test: POST minimal payload to https://$PUBLIC_DOMAIN$AI_TEST_ENDPOINT and assert 200 + expected JSON keys; do not echo secrets
+
+Auth E2E: npx playwright test (UI flow)
+
+Light load: npx autocannon -d 30 -c 20 https://$PUBLIC_DOMAIN$HEALTH_PATH
+
+Final summary with non-zero exit on any failure.
+
+tests/scripts/db_check.mjs – Node script that:
+
+parses DATABASE_URL (Postgres)
+
+attempts connection and simple SELECT 1
+
+optional write test guarded by env RUN_DB_WRITE_TEST (creates a temp table, inserts one row, deletes it, drops table).
+
+tests/scripts/ai_smoke.mjs – posts a tiny prompt to $AI_TEST_ENDPOINT and asserts a JSON field like choices/data exists (make response key configurable at top).
+
+tests/playwright.config.ts + tests/e2e/auth.spec.ts – Playwright test that:
+
+opens https://$PUBLIC_DOMAIN$LOGIN_PATH
+
+fills email/password from env
+
+clicks Login; waits for a dashboard element (make selector configurable at top)
+
+logs out via a logout button or visits $LOGOUT_PATH
+
+selectors stored in tests/config/selectors.json so user can adjust without code edits.
+
+tests/config/selectors.json default:
+
+json
+Copy
+Edit
+{
+  "login": { "email": "input[name=email]", "password": "input[name=password]", "submit": "button[type=submit]" },
+  "dashboardReady": "nav,header,.dashboard,.home",
+  "logoutButton": "text=Logout"
+}
+Add npm scripts in the project (no source changes):
+
+"ci:install": "bash tests/install.sh"
+
+"ci:test": "bash tests/run_all.sh"
+
+Ensure all scripts exit with non-zero on failure and print clear ❌/✅ lines.

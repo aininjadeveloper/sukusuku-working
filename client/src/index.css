@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Apple-inspired Premium Minimal Dark Theme */
+  --background: hsl(0, 0%, 7%);
+  --foreground: hsl(0, 0%, 94%);
+  --muted: hsl(0, 0%, 10%);
+  --muted-foreground: hsl(0, 0%, 65%);
+  --popover: hsl(0, 0%, 8%);
+  --popover-foreground: hsl(0, 0%, 94%);
+  --card: hsl(0, 0%, 8%);
+  --card-foreground: hsl(0, 0%, 94%);
+  --border: hsl(0, 0%, 15%);
+  --input: hsl(0, 0%, 10%);
+  --primary: hsl(0, 100%, 49%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(0, 0%, 10%);
+  --secondary-foreground: hsl(0, 0%, 94%);
+  --accent: hsl(0, 0%, 10%);
+  --accent-foreground: hsl(0, 0%, 94%);
+  --destructive: hsl(0, 84.2%, 60.2%);
+  --destructive-foreground: hsl(0, 0%, 94%);
+  --ring: hsl(0, 100%, 49%);
+  --radius: 0.5rem;
+  
+  /* Apple-style SukuSuku Color Palette */
+  --suku-red: #F40009;
+  --suku-red-hover: #d60008;
+  --suku-white: #F0F0F0;
+  --suku-black: #121212;
+  --suku-dark-gray: #1a1a1a;
+  --suku-surface: #121212;
+  --suku-surface-light: #1a1a1a;
+  --suku-border: #2a2a2a;
+  --suku-text-primary: #F0F0F0;
+  --suku-text-secondary: #e0e0e0;
+  --suku-text-muted: #a0a0a0;
+}
+
+.dark {
+  --background: hsl(240, 10%, 3.9%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(240, 3.7%, 15.9%);
+  --muted-foreground: hsl(240, 5%, 64.9%);
+  --popover: hsl(240, 10%, 3.9%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(240, 10%, 3.9%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(240, 3.7%, 15.9%);
+  --input: hsl(240, 3.7%, 15.9%);
+  --primary: hsl(359, 100%, 48%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(240, 3.7%, 15.9%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --accent: hsl(240, 3.7%, 15.9%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(240, 4.9%, 83.9%);
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  * {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+  }
+
+  body {
+    @apply antialiased;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+    font-size: 17px;
+    line-height: 1.5;
+    background-color: var(--suku-black);
+    color: var(--suku-text-primary);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Apple-style Color Utilities */
+  .bg-suku-red {
+    background-color: var(--suku-red);
+  }
+  
+  .bg-suku-black {
+    background-color: var(--suku-black);
+  }
+  
+  .bg-suku-dark-gray {
+    background-color: var(--suku-dark-gray);
+  }
+  
+  .bg-suku-surface {
+    background-color: var(--suku-surface);
+  }
+  
+  .bg-suku-surface-light {
+    background-color: var(--suku-surface-light);
+  }
+  
+  .text-suku-red {
+    color: var(--suku-red);
+  }
+  
+  .text-suku-white {
+    color: var(--suku-white);
+  }
+  
+  .text-suku-primary {
+    color: var(--suku-text-primary);
+  }
+  
+  .text-suku-secondary {
+    color: var(--suku-text-secondary);
+  }
+  
+  .text-suku-muted {
+    color: var(--suku-text-muted);
+  }
+  
+  .border-suku-border {
+    border-color: var(--suku-border);
+  }
+
+  /* Apple-style Button */
+  .apple-button {
+    @apply px-6 py-3 rounded-lg font-medium transition-all duration-200 ease-out;
+  }
+  
+  .apple-button-red {
+    @apply apple-button;
+    background-color: var(--suku-red);
+    color: white;
+  }
+  
+  .apple-button-red:hover {
+    background-color: var(--suku-red-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px rgba(244, 0, 9, 0.25);
+  }
+
+  /* Premium Card Styling */
+  .apple-card {
+    @apply rounded-lg p-8 transition-all duration-300;
+    background-color: var(--suku-surface-light);
+    border: 1px solid var(--suku-border);
+  }
+  
+  .apple-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  }
+
+  .glass-effect {
+    backdrop-filter: blur(16px);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .premium-glow {
+    box-shadow: 
+      0 0 40px rgba(244, 0, 9, 0.08),
+      0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .premium-glow-hover:hover {
+    box-shadow: 
+      0 0 60px rgba(244, 0, 9, 0.15),
+      0 8px 30px rgba(0, 0, 0, 0.4);
+  }
+
+  .text-shadow-premium {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .minimal-border {
+    border: 1px solid var(--suku-border);
+  }
+
+  .minimal-border-hover:hover {
+    border-color: var(--suku-red);
+  }
+
+  .premium-card {
+    background: var(--suku-surface-elevated);
+    border: 1px solid var(--suku-border);
+    border-radius: 1rem;
+  }
+
+  .premium-card:hover {
+    border-color: var(--suku-red);
+    background: var(--suku-surface-light);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}

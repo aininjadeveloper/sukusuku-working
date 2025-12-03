@@ -1,0 +1,497 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SukuSuku.ai - Unleash the Future of Creativity</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'suku-red': '#F40009',
+                        'suku-black': '#000000',
+                        'suku-white': '#FFFFFF',
+                        'suku-gray': '#F5F5F7',
+                        'suku-dark': '#1D1D1F'
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        };
+    </script>
+    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpFNTE3OEEyRTk5QTAxMUUyOUExNUJDMTA0NkE4OTA0RCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpFNTE3OEEyRjk5QTAxMUUyOUExNUJDMTA0NkE4OTA0RCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkU1MTc4QTJDOTlBMDExRTI5QTE1QkMxMDQ2QTg5MDREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkU1MTc4QTJEOTlBMDExRTI5QTE1QkMxMDQ2QTg5MDREIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+m4QGuQAAAERJREFUeNpi/P//PwMlgImBQjBqwKgBowaMGjBqwKgBowaMGjBqwKgBowaMGjBqwKgBowaMGjBqwKgBowaMGjAoBgAEGAAQm4f4QWM5AQAAAABJRU5ErkJggg==">
+</head>
+<body class="font-inter bg-white text-suku-black">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100" id="header">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="#" class="text-2xl font-bold text-suku-red">SukuSuku.ai</a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="text-suku-black hover:text-suku-red transition-colors duration-200 font-medium">Home</a>
+                        <a href="#about" class="text-suku-black hover:text-suku-red transition-colors duration-200 font-medium">About</a>
+                        <a href="#features" class="text-suku-black hover:text-suku-red transition-colors duration-200 font-medium">Features</a>
+                        <a href="#use-cases" class="text-suku-black hover:text-suku-red transition-colors duration-200 font-medium">Use Cases</a>
+                        <a href="#contact" class="text-suku-black hover:text-suku-red transition-colors duration-200 font-medium">Contact</a>
+                    </div>
+                </div>
+
+                <!-- CTA Button -->
+                <div class="hidden md:block">
+                    <a href="#contact" class="bg-suku-red text-white px-6 py-2.5 rounded-full font-medium hover:bg-red-700 transition-colors duration-200">
+                        Get Early Access
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button type="button" class="text-suku-black hover:text-suku-red transition-colors duration-200" id="mobile-menu-button">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div class="md:hidden hidden" id="mobile-menu">
+                <div class="px-2 pt-2 pb-3 space-y-1 bg-white border-t border-gray-100">
+                    <a href="#home" class="block px-3 py-2 text-suku-black hover:text-suku-red transition-colors duration-200 font-medium">Home</a>
+                    <a href="#about" class="block px-3 py-2 text-suku-black hover:text-suku-red transition-colors duration-200 font-medium">About</a>
+                    <a href="#features" class="block px-3 py-2 text-suku-black hover:text-suku-red transition-colors duration-200 font-medium">Features</a>
+                    <a href="#use-cases" class="block px-3 py-2 text-suku-black hover:text-suku-red transition-colors duration-200 font-medium">Use Cases</a>
+                    <a href="#contact" class="block px-3 py-2 text-suku-black hover:text-suku-red transition-colors duration-200 font-medium">Contact</a>
+                    <a href="#contact" class="block mx-3 mt-4 bg-suku-red text-white px-6 py-2.5 rounded-full font-medium text-center hover:bg-red-700 transition-colors duration-200">
+                        Get Early Access
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="pt-24 pb-20 px-4 sm:px-6 lg:px-8 bg-white">
+            <div class="max-w-4xl mx-auto text-center">
+                <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold text-suku-black mb-8 leading-tight">
+                    Unleash the Future of <span class="text-suku-red">Creativity</span>
+                </h1>
+                <p class="text-xl sm:text-2xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
+                    An AI-powered platform for filmmakers, writers, creators & educators.
+                </p>
+                <a href="#features" class="inline-block bg-suku-red text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-red-700 transform hover:scale-105 transition-all duration-200 shadow-lg">
+                    Explore Penora
+                </a>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="py-20 px-4 sm:px-6 lg:px-8 bg-suku-gray">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl sm:text-5xl font-bold text-suku-black mb-6">
+                        AI-Powered <span class="text-suku-red">Creative Suite</span>
+                    </h2>
+                    <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                        Everything you need to bring your creative vision to life, powered by cutting-edge artificial intelligence.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+                    <!-- Script Writing -->
+                    <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-shadow duration-300">
+                        <div class="w-16 h-16 bg-suku-red/10 rounded-xl flex items-center justify-center mb-6">
+                            <span class="text-3xl">🎬</span>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-suku-black mb-4">Script Writing</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Generate compelling scripts, dialogue, and storylines with AI assistance that understands narrative structure and character development.
+                        </p>
+                    </div>
+
+                    <!-- Music Generation -->
+                    <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-shadow duration-300">
+                        <div class="w-16 h-16 bg-suku-red/10 rounded-xl flex items-center justify-center mb-6">
+                            <span class="text-3xl">🎵</span>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-suku-black mb-4">Music Generation</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Create original soundtracks, background music, and audio effects tailored to your content's mood and style.
+                        </p>
+                    </div>
+
+                    <!-- Video Editing -->
+                    <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-shadow duration-300">
+                        <div class="w-16 h-16 bg-suku-red/10 rounded-xl flex items-center justify-center mb-6">
+                            <span class="text-3xl">🎥</span>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-suku-black mb-4">Video Editing</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Streamline your editing workflow with intelligent cuts, transitions, and effects that adapt to your creative vision.
+                        </p>
+                    </div>
+
+                    <!-- Visual Design -->
+                    <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-shadow duration-300">
+                        <div class="w-16 h-16 bg-suku-red/10 rounded-xl flex items-center justify-center mb-6">
+                            <span class="text-3xl">🎨</span>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-suku-black mb-4">Visual Design</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Generate stunning visuals, graphics, and artistic elements that perfectly complement your creative projects.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Use Cases Section -->
+        <section id="use-cases" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl sm:text-5xl font-bold text-suku-black mb-6">
+                        Who Can Use <span class="text-suku-red">SukuSuku.ai?</span>
+                    </h2>
+                    <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                        Our platform empowers creators across industries to transform their ideas into reality.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Filmmakers -->
+                    <div class="group bg-white border border-gray-100 rounded-2xl p-6 hover:border-suku-red/20 hover:shadow-lg transition-all duration-300">
+                        <div class="w-12 h-12 bg-suku-red/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-suku-red/20 transition-colors duration-300">
+                            <span class="text-2xl">🎬</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-suku-black mb-3">Filmmakers</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            From concept to post-production, streamline your filmmaking process with AI-powered tools for every stage.
+                        </p>
+                    </div>
+
+                    <!-- Authors -->
+                    <div class="group bg-white border border-gray-100 rounded-2xl p-6 hover:border-suku-red/20 hover:shadow-lg transition-all duration-300">
+                        <div class="w-12 h-12 bg-suku-red/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-suku-red/20 transition-colors duration-300">
+                            <span class="text-2xl">✍️</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-suku-black mb-3">Authors</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Break through writer's block and enhance your storytelling with AI assistance for plot development and character creation.
+                        </p>
+                    </div>
+
+                    <!-- Digital Creators -->
+                    <div class="group bg-white border border-gray-100 rounded-2xl p-6 hover:border-suku-red/20 hover:shadow-lg transition-all duration-300">
+                        <div class="w-12 h-12 bg-suku-red/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-suku-red/20 transition-colors duration-300">
+                            <span class="text-2xl">💻</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-suku-black mb-3">Digital Creators</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Produce engaging content faster with AI tools that understand your audience and optimize for maximum impact.
+                        </p>
+                    </div>
+
+                    <!-- Businesses -->
+                    <div class="group bg-white border border-gray-100 rounded-2xl p-6 hover:border-suku-red/20 hover:shadow-lg transition-all duration-300">
+                        <div class="w-12 h-12 bg-suku-red/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-suku-red/20 transition-colors duration-300">
+                            <span class="text-2xl">🏢</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-suku-black mb-3">Businesses</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Create professional marketing content, presentations, and brand materials with enterprise-grade AI tools.
+                        </p>
+                    </div>
+
+                    <!-- Educators -->
+                    <div class="group bg-white border border-gray-100 rounded-2xl p-6 hover:border-suku-red/20 hover:shadow-lg transition-all duration-300">
+                        <div class="w-12 h-12 bg-suku-red/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-suku-red/20 transition-colors duration-300">
+                            <span class="text-2xl">📚</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-suku-black mb-3">Educators</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Develop engaging educational content and interactive learning materials that captivate and inspire students.
+                        </p>
+                    </div>
+
+                    <!-- Marketers -->
+                    <div class="group bg-white border border-gray-100 rounded-2xl p-6 hover:border-suku-red/20 hover:shadow-lg transition-all duration-300">
+                        <div class="w-12 h-12 bg-suku-red/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-suku-red/20 transition-colors duration-300">
+                            <span class="text-2xl">📈</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-suku-black mb-3">Marketers</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Generate compelling campaigns, social media content, and advertising materials that drive results and engagement.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Creation Section -->
+        <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 bg-suku-gray">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-4xl sm:text-5xl font-bold text-suku-black mb-8">
+                    Our <span class="text-suku-red">Creation</span>
+                </h2>
+                <p class="text-xl text-gray-600 mb-12 leading-relaxed">
+                    Introducing our flagship platform that's revolutionizing creative content production.
+                </p>
+                
+                <div class="bg-white rounded-2xl p-8 lg:p-12 shadow-sm">
+                    <div class="mb-8">
+                        <h3 class="text-3xl font-bold text-suku-red mb-4">Penora</h3>
+                        <p class="text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto">
+                            Penora is our revolutionary AI-powered creative platform that transforms your ideas into production-ready content. 
+                            Whether you're crafting the next blockbuster film, writing a bestselling novel, or creating viral marketing campaigns, 
+                            Penora provides the intelligent tools and creative assistance you need to bring your vision to life faster than ever before.
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-suku-red mb-2">10x</div>
+                            <div class="text-gray-600">Faster Creation</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-suku-red mb-2">50+</div>
+                            <div class="text-gray-600">AI Tools</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-suku-red mb-2">99%</div>
+                            <div class="text-gray-600">User Satisfaction</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl sm:text-5xl font-bold text-suku-black mb-6">
+                        Get in <span class="text-suku-red">Touch</span>
+                    </h2>
+                    <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                        Ready to transform your creative process? We'd love to hear from you.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <!-- Contact Form -->
+                    <div class="bg-suku-gray rounded-2xl p-8">
+                        <form id="contact-form" class="space-y-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-suku-black mb-2">Name</label>
+                                <input type="text" id="name" name="name" required 
+                                       class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-suku-red focus:border-transparent transition-colors duration-200"
+                                       placeholder="Your full name">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-suku-black mb-2">Email</label>
+                                <input type="email" id="email" name="email" required 
+                                       class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-suku-red focus:border-transparent transition-colors duration-200"
+                                       placeholder="your.email@example.com">
+                            </div>
+                            <div>
+                                <label for="message" class="block text-sm font-medium text-suku-black mb-2">Message</label>
+                                <textarea id="message" name="message" rows="5" required 
+                                          class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-suku-red focus:border-transparent transition-colors duration-200 resize-none"
+                                          placeholder="Tell us about your project..."></textarea>
+                            </div>
+                            <button type="submit" 
+                                    class="w-full bg-suku-red text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-700 transition-colors duration-200">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Contact Info -->
+                    <div class="space-y-8">
+                        <div>
+                            <h3 class="text-2xl font-semibold text-suku-black mb-4">Let's Create Together</h3>
+                            <p class="text-gray-600 leading-relaxed mb-6">
+                                Whether you're an individual creator or part of a large organization, we're here to help you unlock the full potential of AI-powered creativity.
+                            </p>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-suku-red/10 rounded-lg flex items-center justify-center">
+                                    <span class="text-lg">📧</span>
+                                </div>
+                                <div>
+                                    <div class="font-medium text-suku-black">Email</div>
+                                    <a href="mailto:hello@sukusuku.ai" class="text-suku-red hover:text-red-700 transition-colors duration-200">
+                                        hello@sukusuku.ai
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-suku-red/10 rounded-lg flex items-center justify-center">
+                                    <span class="text-lg">⚡</span>
+                                </div>
+                                <div>
+                                    <div class="font-medium text-suku-black">Response Time</div>
+                                    <div class="text-gray-600">Within 24 hours</div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-suku-red/10 rounded-lg flex items-center justify-center">
+                                    <span class="text-lg">🌍</span>
+                                </div>
+                                <div>
+                                    <div class="font-medium text-suku-black">Global Reach</div>
+                                    <div class="text-gray-600">Worldwide support</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-suku-dark text-white py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <!-- About -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 flex items-center">
+                        <span class="mr-2">🌐</span> About
+                    </h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200">About Us</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200">Our Vision</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200">Team</a></li>
+                    </ul>
+                </div>
+
+                <!-- Policies -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 flex items-center">
+                        <span class="mr-2">📄</span> Policies
+                    </h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200">Terms & Conditions</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200">Cookies Policy</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200">Security Statement</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 flex items-center">
+                        <span class="mr-2">🔧</span> Support
+                    </h4>
+                    <ul class="space-y-2">
+                        <li><a href="#contact" class="text-gray-300 hover:text-white transition-colors duration-200">Contact</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200">FAQ</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200">Feedback</a></li>
+                    </ul>
+                </div>
+
+                <!-- Subscribe -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 flex items-center">
+                        <span class="mr-2">📩</span> Subscribe
+                    </h4>
+                    <p class="text-gray-300 text-sm mb-4">Stay updated with our latest features and announcements.</p>
+                    <form id="newsletter-form" class="space-y-3">
+                        <input type="email" placeholder="Your email" required
+                               class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-suku-red focus:border-transparent transition-colors duration-200">
+                        <button type="submit" 
+                                class="w-full bg-suku-red text-white px-4 py-2 rounded-lg font-medium hover:bg-red-700 transition-colors duration-200">
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="border-t border-gray-700 pt-8">
+                <div class="text-center text-gray-300">
+                    <p>&copy; 2025 SukuSuku.ai | Built for Creators | All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Close mobile menu when clicking on a link
+            document.querySelectorAll('#mobile-menu a').forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            // Contact form submission
+            document.getElementById('contact-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                // TODO: Implement actual form submission logic
+                alert('Thank you for your message! We\'ll get back to you soon.');
+                this.reset();
+            });
+
+            // Newsletter form submission
+            document.getElementById('newsletter-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                // TODO: Implement actual newsletter subscription logic
+                alert('Thank you for subscribing to our newsletter!');
+                this.reset();
+            });
+
+            // Header background on scroll
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 100) {
+                    header.classList.add('bg-white/95');
+                    header.classList.remove('bg-white/80');
+                } else {
+                    header.classList.add('bg-white/80');
+                    header.classList.remove('bg-white/95');
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

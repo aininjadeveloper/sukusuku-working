@@ -1,0 +1,96 @@
+You are designing a professional, minimalistic website for the AI platform "SukuSuku.ai". Please build a complete, fully responsive HTML + CSS + JS website with the following key requirements:
+
+🌐 WEBSITE GOAL:
+A premium, modern, Apple-style design that reflects creativity, intelligence, and simplicity. The platform "SukuSuku.ai" is an AI-powered creative suite for filmmakers, authors, digital creators, marketers, and educators.
+
+🎨 COLOR THEME:
+Keep the current SukuSuku.ai theme of Red (#F40009), White (#FFFFFF), and Black (#000000). Use red sparingly for highlights (CTA buttons, icons), dominant white backgrounds, and minimal black or dark grey text. Do not add any new colors.
+
+💡 DESIGN STYLE:
+- Premium feel like Apple.com
+- Minimal layout with lots of whitespace
+- Clean sans-serif font (e.g., Inter, Helvetica, or SF Pro)
+- Subtle transitions or hover effects
+- Responsive across desktop, tablet, and mobile
+
+🧩 STRUCTURE:
+
+📍 HEADER (Sticky top):
+- Logo left: "SukuSuku.ai" in bold red text
+- Right side navigation (Home, About, Features, Use Cases, Contact)
+- CTA button: “Get Early Access” (red button with white text)
+
+📍 HERO SECTION:
+- Clean full-width hero with centered bold headline:
+  “Unleash the Future of Creativity”
+- Subheadline:
+  “An AI-powered platform for filmmakers, writers, creators & educators.”
+- Red CTA button: “Explore Penora”
+
+📍 FEATURES SECTION (2-column layout):
+- Heading: “AI-Powered Creative Suite”
+- 4 Features with icons:
+  - 🎬 Script Writing
+  - 🎵 Music Generation
+  - 🎥 Video Editing
+  - 🎨 Visual Design
+
+📍 USE CASES SECTION:
+- Title: “Who Can Use SukuSuku.ai?”
+- Grid layout with 6 cards for:
+  - Filmmakers
+  - Authors
+  - Digital Creators
+  - Businesses
+  - Educators
+  - Marketers
+- Each card should have a title, small icon, and short description
+
+📍 OUR CREATION SECTION:
+- Title: “Our Creation”
+- Description:
+  “Introducing our flagship platform that's revolutionizing creative content production.”
+- Product name: Penora
+- Short blurb about how Penora helps creators turn ideas into production-ready output using AI.
+
+📍 CONTACT SECTION:
+- Heading: “Get in Touch”
+- Contact form with fields: Name, Email, Message
+- Button: “Send Message”
+- Email: hello@sukusuku.ai
+
+📍 FOOTER (clean, dark background):
+Split into 4 columns:
+1. 🌐 About  
+   - About Us  
+   - Our Vision  
+   - Team  
+2. 📄 Policies  
+   - Terms & Conditions  
+   - Privacy Policy  
+   - Cookies Policy  
+   - Security Statement  
+3. 🔧 Support  
+   - Contact  
+   - FAQ  
+   - Feedback  
+4. 📩 Subscribe  
+   - Email input box + “Subscribe” button  
+
+Bottom bar:  
+© 2025 SukuSuku.ai | Built for Creators | All rights reserved.
+
+🧠 OTHER NOTES:
+- Use smooth scroll behavior
+- Keep JS minimal (only for navigation and form)
+- Entire design must feel lightweight and premium
+- Clean mobile nav menu
+- Use `<section>` tags properly
+- Add favicon support (placeholder okay)
+
+📦 Output a complete file structure:
+- index.html
+- /assets/
+   - style.css
+   - script.js
+   - favicon.png (placeholder)

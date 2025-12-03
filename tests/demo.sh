@@ -1,0 +1,60 @@
+#!/bin/bash
+
+echo "🎯 Production Deployment Test Pack Demo"
+echo "======================================"
+echo ""
+echo "This test pack verifies production deployment without changing app code."
+echo ""
+
+# Check if tests/.env exists
+if [ ! -f "tests/.env" ]; then
+    echo "📋 Creating example configuration..."
+    cp tests/.env.ci.sample tests/.env
+    echo "✅ Created tests/.env from template"
+    echo ""
+    echo "⚠️  Please edit tests/.env with your actual configuration:"
+    echo "   - NODE_PORT (your app's port)"
+    echo "   - PUBLIC_DOMAIN (your production domain)"
+    echo "   - TEST_EMAIL/TEST_PASSWORD (test account credentials)"
+    echo "   - DATABASE_URL (your database connection)"
+    echo ""
+fi
+
+echo "🔧 Available commands:"
+echo ""
+echo "  npm run ci:install  - Install test dependencies (Playwright, autocannon)"
+echo "  npm run ci:test     - Run full test suite"
+echo ""
+echo "Or manually:"
+echo "  bash tests/install.sh    - Install dependencies"
+echo "  bash tests/run_all.sh    - Run all tests"
+echo ""
+
+echo "🧪 Test Coverage:"
+echo "  ✅ Health checks (local + public domain)"
+echo "  ✅ SSL certificate validation"
+echo "  ✅ Auth flow (signup → login → logout)"
+echo "  ✅ Database connectivity"
+echo "  ✅ AI endpoint testing"
+echo "  ✅ Load testing (30s with 20 connections)"
+echo ""
+
+echo "📁 Files created:"
+echo "  tests/README.md              - Documentation"
+echo "  tests/.env.ci.sample         - Environment template"
+echo "  tests/.env                   - Your configuration"
+echo "  tests/install.sh             - Dependency installer"
+echo "  tests/run_all.sh             - Main test runner"
+echo "  tests/scripts/db_check.mjs   - Database connectivity test"
+echo "  tests/scripts/ai_smoke.mjs   - AI endpoint test"
+echo "  tests/playwright.config.ts   - Playwright configuration"
+echo "  tests/e2e/auth.spec.ts       - Auth flow E2E test"
+echo "  tests/config/selectors.json  - Customizable UI selectors"
+echo ""
+
+echo "🚀 Quick start:"
+echo "  1. Edit tests/.env with your configuration"
+echo "  2. Run: npm run ci:install"
+echo "  3. Run: npm run ci:test"
+echo ""
+echo "The test suite will verify your production deployment is healthy!"

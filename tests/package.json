@@ -1,0 +1,15 @@
+{
+  "name": "sukusuku-ci-tests",
+  "version": "1.0.0",
+  "description": "Production deployment test pack for sukusuku.ai",
+  "type": "module",
+  "scripts": {
+    "install-deps": "bash install.sh",
+    "test": "bash run_all.sh",
+    "demo": "bash demo.sh"
+  },
+  "dependencies": {
+    "@playwright/test": "^1.40.0",
+    "pg": "^8.11.0"
+  }
+}

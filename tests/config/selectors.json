@@ -1,0 +1,9 @@
+{
+  "login": {
+    "email": "input[name=email], input[type=email], #email",
+    "password": "input[name=password], input[type=password], #password",
+    "submit": "button[type=submit], .login-button, .btn-login"
+  },
+  "dashboardReady": "nav, header, .dashboard, .home, [data-testid*=dashboard], [data-testid*=home]",
+  "logoutButton": "text=Logout, .logout, .btn-logout, [data-testid*=logout]"
+}

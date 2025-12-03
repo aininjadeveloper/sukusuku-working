@@ -1,0 +1,81 @@
+🔑 Integration Details for Your Sukusuku Website
+1. Base URL for Penora Integration
+https://penora-writer-developeraim.replit.app
+2. API Key (Required for All Requests)
+PENORA_API_KEY=Pl2UbWIUMgFNQ-iUtQZSozcSUTd1cyNtsNDMhw87bTRST2fN15qT8DP0MG8ZihhZLDcX14xZlikbuwqlIQZ-og
+3. Authentication Method
+All API requests must include the API key in the header:
+
+headers: {
+  'X-API-Key': 'Pl2UbWIUMgFNQ-iUtQZSozcSUTd1cyNtsNDMhw87bTRST2fN15qT8DP0MG8ZihhZLDcX14xZlikbuwqlIQZ-og',
+  'Content-Type': 'application/json'
+}
+4. Integration URL for User Access
+When users click "Access Penora" from your Sukusuku site, redirect them to:
+
+https://penora-writer-developeraim.replit.app/?user_id={USER_ID}&email={EMAIL}&first_name={FIRST_NAME}&last_name={LAST_NAME}
+5. Key API Endpoints for Your Sukusuku Website
+A. Check User Credits
+GET https://penora-writer-developeraim.replit.app/api/unified/user-info?user_id={USER_ID}
+Headers: X-API-Key: Pl2UbWIUMgFNQ-iUtQZSozcSUTd1cyNtsNDMhw87bTRST2fN15qT8DP0MG8ZihhZLDcX14xZlikbuwqlIQZ-og
+B. Deduct Credits (when user uses Penora)
+POST https://penora-writer-developeraim.replit.app/api/unified/deduct-credits
+Headers: X-API-Key: Pl2UbWIUMgFNQ-iUtQZSozcSUTd1cyNtsNDMhw87bTRST2fN15qT8DP0MG8ZihhZLDcX14xZlikbuwqlIQZ-og
+Body: {
+  "user_id": "USER_ID",
+  "amount": 1,
+  "app_name": "sukusuku",
+  "description": "AI text generation from Sukusuku website"
+}
+C. Add Credits (when user purchases)
+POST https://penora-writer-developeraim.replit.app/api/unified/add-credits
+Headers: X-API-Key: Pl2UbWIUMgFNQ-iUtQZSozcSUTd1cyNtsNDMhw87bTRST2fN15qT8DP0MG8ZihhZLDcX14xZlikbuwqlIQZ-og
+Body: {
+  "user_id": "USER_ID",
+  "amount": 50,
+  "transaction_type": "purchase",
+  "description": "Ku coins purchased from Sukusuku"
+}
+6. Example Integration Code for Your Sukusuku Website
+const PENORA_BASE_URL = 'https://penora-writer-developeraim.replit.app';
+const PENORA_API_KEY = 'Pl2UbWIUMgFNQ-iUtQZSozcSUTd1cyNtsNDMhw87bTRST2fN15qT8DP0MG8ZihhZLDcX14xZlikbuwqlIQZ-og';
+// Check user credits
+async function checkUserCredits(userId) {
+  const response = await fetch(`${PENORA_BASE_URL}/api/unified/user-info?user_id=${userId}`, {
+    headers: { 'X-API-Key': PENORA_API_KEY }
+  });
+  return await response.json();
+}
+// Redirect user to Penora with authentication
+function redirectToPenora(user) {
+  const penoraUrl = `${PENORA_BASE_URL}/?user_id=${user.id}&email=${user.email}&first_name=${user.firstName}&last_name=${user.lastName}`;
+  window.location.href = penoraUrl;
+}
+// Add credits after purchase
+async function addCredits(userId, amount, description) {
+  const response = await fetch(`${PENORA_BASE_URL}/api/unified/add-credits`, {
+    method: 'POST',
+    headers: {
+      'X-API-Key': PENORA_API_KEY,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      user_id: userId,
+      amount: amount,
+      transaction_type: 'purchase',
+      description: description
+    })
+  });
+  return await response.json();
+}
+7. Environment Variables to Set in Your Sukusuku App
+Add this to your Sukusuku website's environment variables:
+
+PENORA_API_KEY=Pl2UbWIUMgFNQ-iUtQZSozcSUTd1cyNtsNDMhw87bTRST2fN15qT8DP0MG8ZihhZLDcX14xZlikbuwqlIQZ-og
+PENORA_BASE_URL=https://penora-writer-developeraim.replit.app
+8. Test Your Integration
+Test the API connection from your Sukusuku website:
+
+curl -X GET "https://penora-writer-developeraim.replit.app/api/unified/user-info?user_id=test123" \
+     -H "X-API-Key: Pl2UbWIUMgFNQ-iUtQZSozcSUTd1cyNtsNDMhw87bTRST2fN15qT8DP0MG8ZihhZLDcX14xZlikbuwqlIQZ-og"
+The "Unauthorized" error you're seeing happens because the API key is missing from your requests. Once you add the X-API-Key header with the correct key to all your API calls, the integration will work perfectly.

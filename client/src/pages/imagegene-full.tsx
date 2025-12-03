@@ -1,0 +1,98 @@
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { ExternalLink, Image, ArrowLeft, CreditCard } from "lucide-react";
+import { useLocation } from "wouter";
+import { useAuth } from "@/hooks/useAuth";
+import { useQuery } from "@tanstack/react-query";
+import { AuthGuard } from "@/components/auth-guard";
+
+interface AuthToken {
+  token: string;
+}
+
+interface UserCredits {
+  penoraCredits: string;
+  imagegeneCredits: string;
+  totalCreditsUsed: string;
+}
+
+export default function ImageGeneFull() {
+  const [, navigate] = useLocation();
+  const { user } = useAuth();
+  const IMAGEGENE_URL = "https://image-gene-developeraim.replit.app";
+
+  const { data: authToken } = useQuery<AuthToken>({
+    queryKey: ["/api/auth/token"],
+    enabled: !!user,
+  });
+
+  const { data: credits } = useQuery<UserCredits>({
+    queryKey: ["/api/user/credits"],
+    enabled: !!user,
+  });
+
+  useEffect(() => {
+    if (authToken?.token) {
+      sessionStorage.setItem('sukusuku_auth_token', authToken.token);
+    }
+  }, [authToken]);
+
+  const openInNewTab = () => {
+    const url = authToken?.token 
+      ? `${IMAGEGENE_URL}?token=${authToken.token}`
+      : IMAGEGENE_URL;
+    window.open(url, '_blank');
+  };
+
+  const goBack = () => {
+    navigate("/");
+  };
+
+  return (
+    <AuthGuard message="Please login with Google to access ImageGene AI image generator">
+      <div className="fixed inset-0 z-50 bg-suku-black">
+        <div className="flex items-center justify-between p-4 border-b border-suku-border bg-suku-surface">
+          <div className="flex items-center space-x-3">
+            <Image className="w-5 h-5 text-suku-red" />
+            <h3 className="text-lg font-semibold text-white">ImageGene AI Image Generator</h3>
+            {credits && (
+              <div className="flex items-center space-x-2 ml-4">
+                <CreditCard className="w-4 h-4 text-purple-400" />
+                <span className="text-purple-400 text-sm font-medium">
+                  {credits.imagegeneCredits} credits
+                </span>
+              </div>
+            )}
+          </div>
+          <div className="flex items-center space-x-2">
+            <Button
+              onClick={openInNewTab}
+              variant="outline"
+              size="sm"
+              className="border-suku-border text-suku-text-secondary hover:bg-suku-red hover:text-white"
+            >
+              <ExternalLink className="w-4 h-4 mr-1" />
+              Open in New Tab
+            </Button>
+            <Button
+              onClick={goBack}
+              variant="outline"
+              size="sm"
+              className="border-suku-border text-suku-text-secondary hover:bg-suku-red hover:text-white"
+            >
+              <ArrowLeft className="w-4 h-4 mr-1" />
+              Back to Home
+            </Button>
+          </div>
+        </div>
+        <iframe
+          src={authToken?.token ? `${IMAGEGENE_URL}?token=${authToken.token}&user_id=${encodeURIComponent(user?.id || '')}&email=${encodeURIComponent(user?.email || '')}&first_name=${encodeURIComponent(user?.firstName || '')}&last_name=${encodeURIComponent(user?.lastName || '')}` : IMAGEGENE_URL}
+          className="w-full h-[calc(100vh-80px)] border-0"
+          title="ImageGene App"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-downloads allow-top-navigation allow-pointer-lock"
+        />
+      </div>
+    </AuthGuard>
+  );
+}
