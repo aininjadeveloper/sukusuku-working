@@ -19,8 +19,7 @@ interface UserCredits {
 export default function PenoraFull() {
   const [, navigate] = useLocation();
   const { user } = useAuth();
-  const PENORA_WRITER_URL = import.meta.env.VITE_PENORA_APP_URL?.replace(/\/$/, "");
-  console.log("Debug: Penora Writer URL:", PENORA_WRITER_URL);
+  const PENORA_URL = import.meta.env.VITE_PENORA_APP_URL || "https://penora.sukusuku.ai/";
 
   const { data: authToken } = useQuery<AuthToken>({
     queryKey: ["/api/auth/token"],
@@ -39,10 +38,7 @@ export default function PenoraFull() {
   }, [authToken]);
 
   const openInNewTab = () => {
-    const url = authToken?.token
-      ? `${PENORA_WRITER_URL}?token=${authToken.token}`
-      : PENORA_WRITER_URL;
-    window.open(url, '_blank');
+    window.open(PENORA_URL, '_blank');
   };
 
   const goBack = () => {
@@ -87,7 +83,7 @@ export default function PenoraFull() {
           </div>
         </div>
         <iframe
-          src={authToken?.token ? `${PENORA_WRITER_URL}?token=${authToken.token}&user_id=${encodeURIComponent(user?.id || '')}&email=${encodeURIComponent(user?.email || '')}&first_name=${encodeURIComponent(user?.firstName || '')}&last_name=${encodeURIComponent(user?.lastName || '')}` : PENORA_WRITER_URL}
+          src={PENORA_URL}
           className="w-full h-[calc(100vh-80px)] border-0"
           title="Penora App"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
