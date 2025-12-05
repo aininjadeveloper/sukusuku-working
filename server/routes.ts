@@ -12,14 +12,14 @@ import jwt from "jsonwebtoken";
 
 // Penora API configuration
 const PENORA_API_KEY = process.env.PENORA_API_KEY;
-const PENORA_BASE_URL = process.env.PENORA_BASE_URL || "https://penora-writer-developeraim.replit.app";
-const IMAGEGENE_BASE_URL = process.env.IMAGEGENE_BASE_URL || "https://image-gene-developeraim.replit.app";
+const PENORA_BASE_URL = process.env.PENORA_BASE_URL;
+const IMAGEGENE_BASE_URL = process.env.IMAGEGENE_BASE_URL;
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Session middleware for Google Auth
   // Use PostgreSQL store if DATABASE_URL is available, otherwise use memory store (dev only)
   let sessionStore: any = undefined;
-  
+
   if (process.env.DATABASE_URL) {
     try {
       const connectPg = (await import('connect-pg-simple')).default;
@@ -33,13 +33,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.warn("Could not initialize PostgreSQL session store, using memory store:", error);
     }
   }
-  
+
   app.use(session({
     secret: process.env.SESSION_SECRET || 'fallback-secret-key',
     store: sessionStore,
     resave: false,
     saveUninitialized: false,
-    cookie: { 
+    cookie: {
       secure: process.env.NODE_ENV === 'production',
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 1000 // 24 hours
@@ -55,7 +55,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   } catch (error) {
     console.warn("Replit auth setup failed (this is OK for local development):", error instanceof Error ? error.message : error);
   }
-  
+
   try {
     setupGoogleAuth(app);
   } catch (error) {
@@ -67,7 +67,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const validatedData = registerSchema.parse(req.body);
       const { user, token } = await AuthService.register(validatedData);
-      
+
       // Set secure HTTP-only cookie
       res.cookie('auth_token', token, {
         httpOnly: true,
@@ -75,8 +75,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         sameSite: 'strict',
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       });
-      
-      res.json({ 
+
+      res.json({
         user: {
           id: user.id,
           email: user.email,
@@ -86,17 +86,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
           penoraCredits: user.penoraCredits,
           imagegeneCredits: user.imagegeneCredits,
         },
-        message: 'Registration successful' 
+        message: 'Registration successful'
       });
     } catch (error) {
       if (error instanceof ZodError) {
-        return res.status(400).json({ 
-          message: 'Validation error', 
-          errors: error.errors 
+        return res.status(400).json({
+          message: 'Validation error',
+          errors: error.errors
         });
       }
-      res.status(400).json({ 
-        message: error instanceof Error ? error.message : 'Registration failed' 
+      res.status(400).json({
+        message: error instanceof Error ? error.message : 'Registration failed'
       });
     }
   });
@@ -105,7 +105,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const validatedData = loginSchema.parse(req.body);
       const { user, token } = await AuthService.login(validatedData);
-      
+
       // Set secure HTTP-only cookie
       res.cookie('auth_token', token, {
         httpOnly: true,
@@ -113,8 +113,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         sameSite: 'strict',
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       });
-      
-      res.json({ 
+
+      res.json({
         user: {
           id: user.id,
           email: user.email,
@@ -124,17 +124,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
           penoraCredits: user.penoraCredits,
           imagegeneCredits: user.imagegeneCredits,
         },
-        message: 'Login successful' 
+        message: 'Login successful'
       });
     } catch (error) {
       if (error instanceof ZodError) {
-        return res.status(400).json({ 
-          message: 'Validation error', 
-          errors: error.errors 
+        return res.status(400).json({
+          message: 'Validation error',
+          errors: error.errors
         });
       }
-      res.status(400).json({ 
-        message: error instanceof Error ? error.message : 'Login failed' 
+      res.status(400).json({
+        message: error instanceof Error ? error.message : 'Login failed'
       });
     }
   });
@@ -167,11 +167,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get('/api/auth/user', authMiddleware, async (req: any, res) => {
     try {
       const user = req.user;
-      
+
       if (!user || !user.id) {
         return res.status(404).json({ message: "User not found" });
       }
-      
+
       res.json({
         id: user.id,
         email: user.email,
@@ -196,7 +196,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         await AuthService.logout(token);
         res.clearCookie('auth_token');
       }
-      
+
       // Handle session logout (Google OAuth)
       if (req.isAuthenticated && req.isAuthenticated()) {
         req.logout((err) => {
@@ -205,7 +205,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           }
         });
       }
-      
+
       res.json({ message: "Logged out successfully" });
     } catch (error) {
       console.error("Logout error:", error);
@@ -217,7 +217,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/user/credits", authMiddleware, async (req: any, res) => {
     try {
       const user = req.user;
-      
+
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
@@ -225,9 +225,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Start with database values, then try to fetch from external apps
       let penoraCredits = user.penoraCredits;
       let imagegeneCredits = user.imagegeneCredits;
-      
+
       console.log(`Fetching credits for user ${user.id}: DB Penora=${penoraCredits}, DB ImageGene=${imagegeneCredits}`);
-      
+
       try {
         // Fetch Penora credits
         const fetch = (await import('node-fetch')).default as any;
@@ -243,7 +243,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           headers,
           timeout: 5000
         });
-        
+
         if (penoraResponse.ok) {
           const penoraData = await penoraResponse.json();
           console.log('Penora API response:', penoraData);
@@ -267,7 +267,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           },
           timeout: 5000
         });
-        
+
         if (imagegeneResponse.ok) {
           const imagegeneData = await imagegeneResponse.json();
           console.log('ImageGene API response:', imagegeneData);
@@ -280,13 +280,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       } catch (error) {
         console.error('Failed to fetch ImageGene credits:', error);
       }
-      
+
       // Provide fallback values if both database and API calls fail
       const finalPenoraCredits = penoraCredits !== undefined && penoraCredits !== null ? penoraCredits : 100;
       const finalImagegeneCredits = imagegeneCredits !== undefined && imagegeneCredits !== null ? imagegeneCredits : 50;
-      
+
       console.log(`Final credits for user ${user.id}: Penora=${finalPenoraCredits}, ImageGene=${finalImagegeneCredits}`);
-      
+
       res.json({
         penoraCredits: finalPenoraCredits,
         imagegeneCredits: finalImagegeneCredits,
@@ -302,11 +302,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get('/api/auth/token', authMiddleware, async (req: any, res) => {
     try {
       const user = req.user;
-      
+
       if (!user || !user.id) {
         return res.status(404).json({ message: "User not found" });
       }
-      
+
       const token = await AuthService.generateAppToken(user.id, 'general');
       res.json({ token });
     } catch (error) {
@@ -320,22 +320,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { appName } = req.params;
       let userId = req.user.id;
-      
+
       // Get user ID based on auth method
       if (req.user.authUser) {
         userId = req.user.authUser.id;
       } else if (req.user.claims?.sub) {
         userId = req.user.claims.sub;
       }
-      
+
       if (!userId) {
         return res.status(404).json({ message: "User not found" });
       }
-      
+
       if (!['penora', 'imagegene'].includes(appName.toLowerCase())) {
         return res.status(400).json({ message: 'Invalid app name' });
       }
-      
+
       const appToken = await AuthService.generateAppToken(userId, appName);
       res.json({ token: appToken });
     } catch (error) {
@@ -353,7 +353,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const { penoraCredits, imagegeneCredits } = req.body;
       const updatedUser = await storage.updateUserCredits(user.id, penoraCredits, imagegeneCredits);
-      
+
       res.json(updatedUser);
     } catch (error) {
       console.error("Error updating credits:", error);
@@ -366,7 +366,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       let user = req.user;
       let userId = user.id;
-      
+
       // Get user ID based on auth method
       if (req.user.authUser) {
         userId = req.user.authUser.id;
@@ -375,30 +375,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
         userId = req.user.claims.sub;
         user = await storage.getUser(userId);
       }
-      
+
       if (!user || !userId) {
         return res.status(401).json({ message: "User not found" });
       }
 
       const { penoraCreditsUsed, imagegeneCreditsUsed, timestamp } = req.body;
-      
+
       // Calculate new credit amounts
       let newPenoraCredits = user.penoraCredits || 100;
       let newImagegeneCredits = user.imagegeneCredits || 50;
-      
+
       if (penoraCreditsUsed) {
         newPenoraCredits = Math.max(0, newPenoraCredits - penoraCreditsUsed);
       }
-      
+
       if (imagegeneCreditsUsed) {
         newImagegeneCredits = Math.max(0, newImagegeneCredits - imagegeneCreditsUsed);
       }
-      
+
       // Update credits in database
       const updatedUser = await storage.updateUserCredits(userId, newPenoraCredits, newImagegeneCredits);
-      
+
       console.log(`Credits synced for user ${userId}: Penora ${newPenoraCredits}, ImageGene ${newImagegeneCredits}`);
-      
+
       res.json({
         success: true,
         penoraCredits: newPenoraCredits,
@@ -415,17 +415,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/penora_link", authMiddleware, async (req: any, res) => {
     try {
       const user = req.user;
-      
+
       if (!user || !user.id) {
         return res.status(401).json({ message: "User not found" });
       }
 
       const penoraUrl = PENORA_BASE_URL;
       const redirectUrl = `${penoraUrl}/?user_id=${user.id}&email=${encodeURIComponent(user.email || '')}&first_name=${encodeURIComponent(user.firstName || '')}&last_name=${encodeURIComponent(user.lastName || '')}`;
-      
+
       console.log(`Redirecting user ${user.id} to Penora`);
       res.redirect(redirectUrl);
-      
+
     } catch (error) {
       console.error("Error redirecting to Penora:", error);
       res.status(500).json({ message: "Failed to redirect to Penora" });
@@ -436,17 +436,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/imagegene_link", authMiddleware, async (req: any, res) => {
     try {
       const user = req.user;
-      
+
       if (!user || !user.id) {
         return res.status(401).json({ message: "User not found" });
       }
 
       const imagegeneUrl = IMAGEGENE_BASE_URL;
       const redirectUrl = `${imagegeneUrl}/?user_id=${user.id}&email=${encodeURIComponent(user.email || '')}&first_name=${encodeURIComponent(user.firstName || '')}&last_name=${encodeURIComponent(user.lastName || '')}`;
-      
+
       console.log(`Redirecting user ${user.id} to ImageGene`);
       res.redirect(redirectUrl);
-      
+
     } catch (error) {
       console.error("Error redirecting to ImageGene:", error);
       res.status(500).json({ message: "Failed to redirect to ImageGene" });
@@ -459,18 +459,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const userId = req.params.userId;
       const fetch = (await import('node-fetch')).default as any;
-      
+
       const headers: Record<string, string> = {
         'Content-Type': 'application/json'
       };
       if (PENORA_API_KEY) {
         headers['X-API-Key'] = PENORA_API_KEY;
       }
-      
+
       const response = await fetch(`${PENORA_BASE_URL}/api/unified/user-info?user_id=${userId}`, {
         headers
       });
-      
+
       if (response.ok) {
         const data = await response.json();
         res.json(data);
@@ -488,14 +488,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { userId, amount, description } = req.body;
       const fetch = (await import('node-fetch')).default as any;
-      
+
       const headers: Record<string, string> = {
         'Content-Type': 'application/json'
       };
       if (PENORA_API_KEY) {
         headers['X-API-Key'] = PENORA_API_KEY;
       }
-      
+
       const response = await fetch(`${PENORA_BASE_URL}/api/unified/add-credits`, {
         method: 'POST',
         headers,
@@ -506,7 +506,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           description: description
         })
       });
-      
+
       if (response.ok) {
         const data = await response.json();
         res.json(data);
@@ -522,7 +522,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post('/api/contact', async (req, res) => {
     try {
       const { name, email, message } = req.body;
-      
+
       if (!name || !email || !message) {
         return res.status(400).json({ message: 'All fields are required' });
       }
@@ -534,7 +534,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       console.log('Contact form submission:', { name, email, message: message.substring(0, 50) + '...' });
-      
+
       // Send contact emails using Gmail service
       try {
         await storage.sendContactEmail({ name, email, message });
@@ -544,10 +544,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         // Continue with success response even if email fails
         // User will still see success message for better UX
       }
-      
-      res.json({ 
+
+      res.json({
         message: 'Thank you for your message! You will receive a confirmation email shortly. We will get back to you within 24 hours.',
-        success: true 
+        success: true
       });
     } catch (error) {
       console.error('Contact form error:', error);

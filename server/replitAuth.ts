@@ -17,7 +17,7 @@ const getOidcConfig = memoize(
       throw new Error("REPL_ID is required for Replit OIDC");
     }
     return await client.discovery(
-      new URL(process.env.ISSUER_URL ?? "https://replit.com/oidc"),
+      new URL(process.env.ISSUER_URL!),
       process.env.REPL_ID
     );
   },
@@ -62,7 +62,7 @@ async function upsertUser(
   // Check if user already exists
   const existingUser = await storage.getUser(claims["sub"]);
   const isNewUser = !existingUser;
-  
+
   const userData = {
     id: claims["sub"],
     email: claims["email"],
@@ -70,9 +70,9 @@ async function upsertUser(
     lastName: claims["last_name"],
     profileImageUrl: claims["profile_image_url"],
   };
-  
+
   const user = await storage.upsertUser(userData);
-  
+
   // Send welcome email for new users who haven't received it yet
   if (isNewUser && user.email && user.firstName && !user.welcomeEmailSent) {
     try {
@@ -80,7 +80,7 @@ async function upsertUser(
         to: user.email,
         firstName: user.firstName,
       });
-      
+
       if (emailSent) {
         // Update user to mark welcome email as sent
         await storage.updateUser(user.id, { welcomeEmailSent: true });
@@ -97,7 +97,7 @@ export async function setupAuth(app: Express) {
     // Replit auth is optional for local development
     return;
   }
-  
+
   app.set("trust proxy", 1);
   app.use(getSession());
   app.use(passport.initialize());

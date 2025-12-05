@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { 
-  PenTool, 
-  ExternalLink, 
+import {
+  PenTool,
+  ExternalLink,
   Maximize2,
   BookOpen,
   Sparkles,
@@ -13,7 +13,7 @@ import {
 
 export default function PenoraWriter() {
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const PENORA_WRITER_URL = "https://penora-writer-developeraim.replit.app";
+  const PENORA_WRITER_URL = import.meta.env.VITE_PENORA_BASE_URL;
 
   const openInNewTab = () => {
     window.open(PENORA_WRITER_URL, '_blank');
@@ -74,7 +74,7 @@ export default function PenoraWriter() {
             Try <span className="text-suku-red">Penora</span>
           </h2>
           <p className="text-xl text-suku-text-secondary max-w-3xl mx-auto leading-relaxed">
-            Experience the magic of AI-powered storytelling with our live Penora application. 
+            Experience the magic of AI-powered storytelling with our live Penora application.
             Start creating compelling narratives in seconds.
           </p>
         </div>
@@ -92,7 +92,7 @@ export default function PenoraWriter() {
                   <p className="text-sm text-suku-text-muted">AI-Powered Creative Writing Platform</p>
                 </div>
               </div>
-              
+
               <div className="flex items-center space-x-2">
                 <Button
                   onClick={openInNewTab}
@@ -124,7 +124,7 @@ export default function PenoraWriter() {
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
               />
-              
+
               {/* Loading overlay - optional */}
               <div className="absolute inset-0 bg-suku-black/50 flex items-center justify-center rounded-b-2xl pointer-events-none opacity-0 transition-opacity duration-300">
                 <div className="text-center">
@@ -177,10 +177,10 @@ export default function PenoraWriter() {
                 Ready to unlock your creativity?
               </h3>
               <p className="text-suku-text-secondary mb-6">
-                Experience the full power of PenoraWriter with unlimited access to all features, 
+                Experience the full power of PenoraWriter with unlimited access to all features,
                 advanced AI models, and professional export options.
               </p>
-              <Button 
+              <Button
                 className="bg-suku-red hover:bg-suku-red-hover text-white px-8 py-3 rounded-lg font-medium flex items-center mx-auto"
                 onClick={() => {
                   const element = document.getElementById("contact");

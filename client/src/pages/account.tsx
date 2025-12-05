@@ -245,7 +245,7 @@ export default function Account() {
                   <Button
                     onClick={() =>
                       window.open(
-                        "https://penora-writer-developeraim.replit.app/",
+                        import.meta.env.VITE_PENORA_BASE_URL,
                         "_blank",
                       )
                     }

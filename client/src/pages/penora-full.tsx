@@ -19,7 +19,7 @@ interface UserCredits {
 export default function PenoraFull() {
   const [, navigate] = useLocation();
   const { user } = useAuth();
-  const PENORA_WRITER_URL = "https://penora-writer-developeraim.replit.app";
+  const PENORA_WRITER_URL = import.meta.env.VITE_PENORA_BASE_URL;
 
   const { data: authToken } = useQuery<AuthToken>({
     queryKey: ["/api/auth/token"],
@@ -38,7 +38,7 @@ export default function PenoraFull() {
   }, [authToken]);
 
   const openInNewTab = () => {
-    const url = authToken?.token 
+    const url = authToken?.token
       ? `${PENORA_WRITER_URL}?token=${authToken.token}`
       : PENORA_WRITER_URL;
     window.open(url, '_blank');

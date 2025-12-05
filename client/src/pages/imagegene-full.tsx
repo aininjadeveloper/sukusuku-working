@@ -19,7 +19,7 @@ interface UserCredits {
 export default function ImageGeneFull() {
   const [, navigate] = useLocation();
   const { user } = useAuth();
-  const IMAGEGENE_URL = "https://image-gene-developeraim.replit.app";
+  const IMAGEGENE_URL = import.meta.env.VITE_IMAGEGENE_BASE_URL;
 
   const { data: authToken } = useQuery<AuthToken>({
     queryKey: ["/api/auth/token"],
@@ -38,7 +38,7 @@ export default function ImageGeneFull() {
   }, [authToken]);
 
   const openInNewTab = () => {
-    const url = authToken?.token 
+    const url = authToken?.token
       ? `${IMAGEGENE_URL}?token=${authToken.token}`
       : IMAGEGENE_URL;
     window.open(url, '_blank');

@@ -104,11 +104,10 @@ export default function Navigation() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
           ? "backdrop-blur-xl border-b border-suku-border shadow-lg"
           : "backdrop-blur-xl"
-      }`}
+        }`}
       style={{
         background: isScrolled
           ? "linear-gradient(135deg, #121212 0%, #1a1a1a 100%)"
@@ -413,7 +412,7 @@ export default function Navigation() {
                   onClick={() => {
                     if (user) {
                       window.location.href =
-                        "https://image-gene-developeraim.replit.app/";
+                        import.meta.env.VITE_IMAGEGENE_BASE_URL;
                     } else {
                       navigate("/login");
                     }
