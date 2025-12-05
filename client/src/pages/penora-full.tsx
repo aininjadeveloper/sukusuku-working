@@ -19,12 +19,32 @@ interface UserCredits {
 export default function PenoraFull() {
   const [, navigate] = useLocation();
   const { user } = useAuth();
-  const PENORA_URL = import.meta.env.VITE_PENORA_APP_URL || "https://penora.sukusuku.ai/";
+  const PENORA_BASE_URL = import.meta.env.VITE_PENORA_APP_URL || "https://penora.sukusuku.ai/";
+  const [iframeUrl, setIframeUrl] = useState<string | null>(null);
 
   const { data: authToken } = useQuery<AuthToken>({
     queryKey: ["/api/auth/token"],
     enabled: !!user,
   });
+
+  useEffect(() => {
+    if (user && authToken?.token) {
+      try {
+        const url = new URL(PENORA_BASE_URL);
+        url.searchParams.set("user_id", user.id.toString());
+        url.searchParams.set("email", user.email || "");
+        url.searchParams.set("token", authToken.token);
+        setIframeUrl(url.toString());
+      } catch (e) {
+        console.error("Failed to construct simplified Penora URL", e);
+        setIframeUrl(PENORA_BASE_URL);
+      }
+    } else if (!user) {
+      // If not logged in, maybe just base url? Or nothing?
+      // The AuthGuard handles login requirement usually.
+      // Let's default to base if something is missing but show loading if we expect auth.
+    }
+  }, [user, authToken, PENORA_BASE_URL]);
 
   const { data: credits } = useQuery<UserCredits>({
     queryKey: ["/api/user/credits"],
@@ -38,7 +58,7 @@ export default function PenoraFull() {
   }, [authToken]);
 
   const openInNewTab = () => {
-    window.open(PENORA_URL, '_blank');
+    window.open(iframeUrl || PENORA_BASE_URL, '_blank');
   };
 
   const goBack = () => {
@@ -82,13 +102,19 @@ export default function PenoraFull() {
             </Button>
           </div>
         </div>
-        <iframe
-          src={PENORA_URL}
-          className="w-full h-[calc(100vh-80px)] border-0"
-          title="Penora App"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-top-navigation allow-pointer-lock"
-        />
+        {iframeUrl ? (
+          <iframe
+            src={iframeUrl}
+            className="w-full h-[calc(100vh-80px)] border-0"
+            title="Penora App"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-top-navigation allow-pointer-lock"
+          />
+        ) : (
+          <div className="flex items-center justify-center w-full h-[calc(100vh-80px)] text-suku-text-secondary">
+            Loading Penora...
+          </div>
+        )}
       </div>
     </AuthGuard>
   );
