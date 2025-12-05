@@ -14,6 +14,7 @@ import {
 export default function PenoraWriter() {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const PENORA_WRITER_URL = import.meta.env.VITE_PENORA_APP_URL?.replace(/\/$/, "");
+  console.log("Debug: Penora Writer URL:", PENORA_WRITER_URL);
 
   const openInNewTab = () => {
     window.open(PENORA_WRITER_URL, '_blank');

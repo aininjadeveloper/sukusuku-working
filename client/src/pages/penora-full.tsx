@@ -20,6 +20,7 @@ export default function PenoraFull() {
   const [, navigate] = useLocation();
   const { user } = useAuth();
   const PENORA_WRITER_URL = import.meta.env.VITE_PENORA_APP_URL?.replace(/\/$/, "");
+  console.log("Debug: Penora Writer URL:", PENORA_WRITER_URL);
 
   const { data: authToken } = useQuery<AuthToken>({
     queryKey: ["/api/auth/token"],
