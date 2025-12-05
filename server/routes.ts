@@ -12,7 +12,7 @@ import jwt from "jsonwebtoken";
 
 // Penora API configuration
 const PENORA_API_KEY = process.env.PENORA_API_KEY;
-const PENORA_BASE_URL = process.env.PENORA_BASE_URL;
+const PENORA_BASE_URL = process.env.PENORA_APP_URL;
 const IMAGEGENE_BASE_URL = process.env.IMAGEGENE_BASE_URL;
 
 export async function registerRoutes(app: Express): Promise<Server> {

@@ -245,7 +245,7 @@ export default function Account() {
                   <Button
                     onClick={() =>
                       window.open(
-                        import.meta.env.VITE_PENORA_BASE_URL,
+                        import.meta.env.VITE_PENORA_APP_URL,
                         "_blank",
                       )
                     }
