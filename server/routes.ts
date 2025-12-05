@@ -12,7 +12,9 @@ import jwt from "jsonwebtoken";
 
 // Penora API configuration
 const PENORA_API_KEY = process.env.PENORA_API_KEY;
-const PENORA_BASE_URL = process.env.PENORA_APP_URL;
+const PENORA_APP_URL = process.env.PENORA_APP_URL?.replace(/\/$/, "");
+const PENORA_API_BASE_URL = process.env.PENORA_API_BASE_URL?.replace(/\/$/, "") || `${PENORA_APP_URL}/api`;
+const PENORA_BASE_URL = PENORA_APP_URL; // Keep for backward compatibility if needed, but prefer specific URLs
 const IMAGEGENE_BASE_URL = process.env.IMAGEGENE_BASE_URL;
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -231,7 +233,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       try {
         // Fetch Penora credits
         const fetch = (await import('node-fetch')).default as any;
-        const penoraUrl = `${PENORA_BASE_URL}/api/unified/user-info?user_id=${user.id}`;
+        const penoraUrl = `${PENORA_API_BASE_URL}/unified/user-info?user_id=${user.id}`;
         console.log(`Calling Penora API: ${penoraUrl}`);
         const headers: Record<string, string> = {
           'Content-Type': 'application/json'
@@ -467,7 +469,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         headers['X-API-Key'] = PENORA_API_KEY;
       }
 
-      const response = await fetch(`${PENORA_BASE_URL}/api/unified/user-info?user_id=${userId}`, {
+      const response = await fetch(`${PENORA_API_BASE_URL}/unified/user-info?user_id=${userId}`, {
         headers
       });
 
@@ -496,7 +498,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         headers['X-API-Key'] = PENORA_API_KEY;
       }
 
-      const response = await fetch(`${PENORA_BASE_URL}/api/unified/add-credits`, {
+      const response = await fetch(`${PENORA_API_BASE_URL}/unified/add-credits`, {
         method: 'POST',
         headers,
         body: JSON.stringify({

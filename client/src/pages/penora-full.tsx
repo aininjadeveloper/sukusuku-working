@@ -19,7 +19,7 @@ interface UserCredits {
 export default function PenoraFull() {
   const [, navigate] = useLocation();
   const { user } = useAuth();
-  const PENORA_WRITER_URL = import.meta.env.VITE_PENORA_APP_URL;
+  const PENORA_WRITER_URL = import.meta.env.VITE_PENORA_APP_URL?.replace(/\/$/, "");
 
   const { data: authToken } = useQuery<AuthToken>({
     queryKey: ["/api/auth/token"],
