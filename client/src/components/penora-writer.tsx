@@ -23,7 +23,15 @@ export default function PenoraWriter() {
   const toggleFullscreen = () => {
     setIsFullscreen(!isFullscreen);
   };
-
+  if (!PENORA_WRITER_URL) {
+    return (
+      <section className="py-24 px-4 text-center bg-suku-surface">
+        <h2 className="text-xl font-bold text-red-500 mb-2">Configuration Error</h2>
+        <p className="text-white">The Penora URL is not configured.</p>
+        <p className="text-sm text-gray-400 mt-2">Please set VITE_PENORA_APP_URL in your .env file and rebuild.</p>
+      </section>
+    );
+  }
   if (isFullscreen) {
     return (
       <div className="fixed inset-0 z-50 bg-suku-black">
