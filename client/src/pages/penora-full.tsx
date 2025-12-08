@@ -108,7 +108,7 @@ export default function PenoraFull() {
             className="w-full h-[calc(100vh-80px)] border-0"
             title="Penora App"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-top-navigation allow-pointer-lock"
+            sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-top-navigation allow-pointer-lock allow-downloads"
           />
         ) : (
           <div className="flex items-center justify-center w-full h-[calc(100vh-80px)] text-suku-text-secondary">
