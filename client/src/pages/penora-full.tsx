@@ -73,12 +73,16 @@ export default function PenoraFull() {
             <BookOpen className="w-5 h-5 text-suku-red" />
             <h3 className="text-lg font-semibold text-white">Penora AI Writing Assistant</h3>
             {credits && (
-              <div className="flex items-center space-x-2 ml-4">
+              <button
+                onClick={() => window.open('https://penora.sukusuku.ai/pricing', '_blank')}
+                className="flex items-center space-x-2 ml-4 hover:opacity-80 transition-opacity cursor-pointer focus:outline-none"
+                title="Get more credits"
+              >
                 <CreditCard className="w-4 h-4 text-blue-400" />
                 <span className="text-blue-400 text-sm font-medium">
                   {credits.penoraCredits} credits
                 </span>
-              </div>
+              </button>
             )}
           </div>
           <div className="flex items-center space-x-2">
