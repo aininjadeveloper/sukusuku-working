@@ -73,31 +73,30 @@ export default function PenoraFull() {
             <BookOpen className="w-5 h-5 text-suku-red" />
             <h3 className="text-lg font-semibold text-white">Penora AI Writing Assistant</h3>
             {credits && (
-              { credits && (
-                <button
-                  onClick={() => {
-                    try {
-                      const pricingUrl = new URL("https://penora.sukusuku.ai/pricing");
-                      if (user && authToken?.token) {
-                        pricingUrl.searchParams.set("user_id", user.id.toString());
-                        pricingUrl.searchParams.set("email", user.email || "");
-                        pricingUrl.searchParams.set("token", authToken.token);
-                      }
-                      setIframeUrl(pricingUrl.toString());
-                    } catch (e) {
-                      console.error("Failed to construct pricing URL", e);
-                      setIframeUrl("https://penora.sukusuku.ai/pricing");
+              <button
+                onClick={() => {
+                  try {
+                    const pricingUrl = new URL("https://penora.sukusuku.ai/pricing");
+                    if (user && authToken?.token) {
+                      pricingUrl.searchParams.set("user_id", user.id.toString());
+                      pricingUrl.searchParams.set("email", user.email || "");
+                      pricingUrl.searchParams.set("token", authToken.token);
                     }
-                  }}
-                  className="flex items-center space-x-2 ml-4 hover:opacity-80 transition-opacity cursor-pointer focus:outline-none"
-                  title="Get more credits"
-                >
-                  <CreditCard className="w-4 h-4 text-blue-400" />
-                  <span className="text-blue-400 text-sm font-medium">
-                    {credits.penoraCredits} credits
-                  </span>
-                </button>
-              )}
+                    setIframeUrl(pricingUrl.toString());
+                  } catch (e) {
+                    console.error("Failed to construct pricing URL", e);
+                    setIframeUrl("https://penora.sukusuku.ai/pricing");
+                  }
+                }}
+                className="flex items-center space-x-2 ml-4 hover:opacity-80 transition-opacity cursor-pointer focus:outline-none"
+                title="Get more credits"
+              >
+                <CreditCard className="w-4 h-4 text-blue-400" />
+                <span className="text-blue-400 text-sm font-medium">
+                  {credits.penoraCredits} credits
+                </span>
+              </button>
+            )}
           </div>
           <div className="flex items-center space-x-2">
             <Button
