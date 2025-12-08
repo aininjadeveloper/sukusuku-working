@@ -20,8 +20,7 @@ const IMAGEGENE_BASE_URL = process.env.IMAGEGENE_BASE_URL;
 import { adminRouter } from "./adminRoutes";
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Register Admin Routes
-  app.use("/api/admin", adminRouter);
+
 
   // Session middleware for Google Auth
   // Use PostgreSQL store if DATABASE_URL is available, otherwise use memory store (dev only)
@@ -55,6 +54,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.use(passport.initialize());
   app.use(passport.session());
+
+  // Register Admin Routes (Must be after session middleware)
+  app.use("/api/admin", adminRouter);
 
   // Setup both auth systems (optional for local development)
   try {
