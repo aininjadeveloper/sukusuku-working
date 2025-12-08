@@ -23,18 +23,22 @@ adminRouter.post("/login", (req, res) => {
         return res.status(500).json({ message: "Admin password not configured on server" });
     }
 
+    // Debugging: Log interactions (safe)
+    console.log(`Admin login attempt. Input length: ${password?.length}, Expected length: ${adminPassword?.length}`);
+
     if (password === adminPassword) {
         (req.session as any).isAdmin = true;
         return res.json({ message: "Admin login successful" });
     }
 
-    res.status(401).json({ message: "Invalid password" });
-});
+    // Robust check: trim whitespace
+    if (password?.trim() === adminPassword?.trim()) {
+        (req.session as any).isAdmin = true;
+        console.log("Admin login successful after trimming whitespace");
+        return res.json({ message: "Admin login successful" });
+    }
 
-// Admin Logout Route
-adminRouter.post("/logout", (req, res) => {
-    (req.session as any).isAdmin = false;
-    res.json({ message: "Logged out" });
+    res.status(401).json({ message: "Invalid password" });
 });
 
 // Admin Stats Route
