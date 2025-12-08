@@ -17,7 +17,12 @@ const PENORA_API_BASE_URL = process.env.PENORA_API_BASE_URL?.replace(/\/$/, "") 
 const PENORA_BASE_URL = PENORA_APP_URL; // Keep for backward compatibility if needed, but prefer specific URLs
 const IMAGEGENE_BASE_URL = process.env.IMAGEGENE_BASE_URL;
 
+import { adminRouter } from "./adminRoutes";
+
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Register Admin Routes
+  app.use("/api/admin", adminRouter);
+
   // Session middleware for Google Auth
   // Use PostgreSQL store if DATABASE_URL is available, otherwise use memory store (dev only)
   let sessionStore: any = undefined;

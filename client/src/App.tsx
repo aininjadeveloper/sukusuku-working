@@ -14,6 +14,8 @@ import Disclaimer from "@/pages/disclaimer";
 import RefundPolicy from "@/pages/refund-policy";
 import PenoraFull from "@/pages/penora-full";
 import ImageGeneFull from "@/pages/imagegene-full";
+import AdminLogin from "@/pages/admin-login";
+import AdminDashboard from "@/pages/admin-dashboard";
 
 function Router() {
   const { isAuthenticated, isLoading } = useAuth();
@@ -29,6 +31,14 @@ function Router() {
       <Route path="/terms-conditions" component={TermsConditions} />
       <Route path="/disclaimer" component={Disclaimer} />
       <Route path="/refund-policy" component={RefundPolicy} />
+      <Route path="/refund-policy" component={RefundPolicy} />
+      {/* Admin Routes */}
+      <Route path="/admin" component={() => {
+        window.location.href = "/admin/login";
+        return null; // Redirect
+      }} />
+      <Route path="/admin/login" component={AdminLogin} />
+      <Route path="/admin/dashboard" component={AdminDashboard} />
       <Route component={NotFound} />
     </Switch>
   );
