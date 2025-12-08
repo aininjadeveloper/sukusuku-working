@@ -244,10 +244,7 @@ export default function Account() {
                   </p>
                   <Button
                     onClick={() =>
-                      window.open(
-                        import.meta.env.VITE_PENORA_APP_URL?.replace(/\/$/, ""),
-                        "_blank",
-                      )
+                      window.open("/penora", "_blank")
                     }
                     className="w-full bg-blue-600 hover:bg-blue-700 text-white"
                   >
