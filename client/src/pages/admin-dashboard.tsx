@@ -240,7 +240,6 @@ export default function AdminDashboard() {
                     </CardContent>
                 </Card>
             </div>
-            </div>
 
             {/* Charts Section */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
