@@ -76,7 +76,7 @@ export default function PenoraFull() {
               <button
                 onClick={() => {
                   try {
-                    const pricingUrl = new URL("https://penora.sukusuku.ai/pricing");
+                    const pricingUrl = new URL(`${PENORA_BASE_URL}/pricing`);
                     if (user && authToken?.token) {
                       pricingUrl.searchParams.set("user_id", user.id.toString());
                       pricingUrl.searchParams.set("email", user.email || "");
@@ -85,7 +85,7 @@ export default function PenoraFull() {
                     setIframeUrl(pricingUrl.toString());
                   } catch (e) {
                     console.error("Failed to construct pricing URL", e);
-                    setIframeUrl("https://penora.sukusuku.ai/pricing");
+                    setIframeUrl(`${PENORA_BASE_URL}/pricing`);
                   }
                 }}
                 className="flex items-center space-x-2 ml-4 hover:opacity-80 transition-opacity cursor-pointer focus:outline-none"

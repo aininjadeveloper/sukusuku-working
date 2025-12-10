@@ -269,7 +269,7 @@ export default function Account() {
                   <Button
                     onClick={() =>
                       window.open(
-                        "https://image-gene-developeraim.replit.app/",
+                        import.meta.env.VITE_IMAGEGENE_BASE_URL || "/imagegene",
                         "_blank",
                       )
                     }

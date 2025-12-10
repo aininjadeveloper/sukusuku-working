@@ -60,12 +60,12 @@ export class DatabaseStorage implements IStorage {
           .returning();
         return updatedUser;
       } else {
-        // Create new user with default credits
+        // Create new user with default credits (matching schema.ts defaults)
         const [newUser] = await db
           .insert(users)
           .values({
             ...userData,
-            penoraCredits: 100,
+            penoraCredits: 50,
             imagegeneCredits: 50,
             totalCreditsUsed: 0,
             lastLoginAt: new Date(),
