@@ -185,15 +185,19 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                 <FormField
                   control={loginForm.control}
                   name="email"
-                  render={({ field }) => (
+                  render={({ field, fieldState }) => (
                     <FormItem>
                       <FormLabel className="text-white">Email</FormLabel>
                       <FormControl>
                         <div className="relative">
-                          <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                          <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none z-10" />
                           <Input
+                            id={`login-email-${field.name}`}
+                            type="email"
                             placeholder="Enter your email"
                             className="pl-10 bg-suku-surface border-suku-border text-white"
+                            autoComplete="email"
+                            aria-invalid={!!fieldState.error}
                             {...field}
                           />
                         </div>
@@ -206,22 +210,26 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                 <FormField
                   control={loginForm.control}
                   name="password"
-                  render={({ field }) => (
+                  render={({ field, fieldState }) => (
                     <FormItem>
                       <FormLabel className="text-white">Password</FormLabel>
                       <FormControl>
                         <div className="relative">
-                          <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                          <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none z-10" />
                           <Input
+                            id={`login-password-${field.name}`}
                             type={showPassword ? "text" : "password"}
                             placeholder="Enter your password"
                             className="pl-10 pr-10 bg-suku-surface border-suku-border text-white"
+                            autoComplete="current-password"
+                            aria-invalid={!!fieldState.error}
                             {...field}
                           />
                           <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
-                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white"
+                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white z-10"
+                            tabIndex={-1}
                           >
                             {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                           </button>
@@ -250,17 +258,19 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                   <FormField
                     control={registerForm.control}
                     name="firstName"
-                    render={({ field }) => (
+                    render={({ field, fieldState }) => (
                       <FormItem>
                         <FormLabel className="text-white">First Name</FormLabel>
                         <FormControl>
                           <div className="relative">
-                            <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none" />
+                            <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none z-10" />
                             <Input
+                              id={`firstName-${field.name}`}
                               placeholder="First name"
-                              className="pl-10 bg-suku-surface border-suku-border text-white pointer-events-auto cursor-text"
+                              className="pl-10 bg-suku-surface border-suku-border text-white"
+                              autoComplete="given-name"
+                              aria-invalid={!!fieldState.error}
                               {...field}
-                              disabled={false}
                             />
                           </div>
                         </FormControl>
@@ -272,15 +282,17 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                   <FormField
                     control={registerForm.control}
                     name="lastName"
-                    render={({ field }) => (
+                    render={({ field, fieldState }) => (
                       <FormItem>
                         <FormLabel className="text-white">Last Name</FormLabel>
                         <FormControl>
                           <Input
+                            id={`lastName-${field.name}`}
                             placeholder="Last name"
-                            className="bg-suku-surface border-suku-border text-white pointer-events-auto cursor-text"
+                            className="bg-suku-surface border-suku-border text-white"
+                            autoComplete="family-name"
+                            aria-invalid={!!fieldState.error}
                             {...field}
-                            disabled={false}
                           />
                         </FormControl>
                         <FormMessage />
@@ -292,19 +304,20 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                 <FormField
                   control={registerForm.control}
                   name="email"
-                  render={({ field }) => (
+                  render={({ field, fieldState }) => (
                     <FormItem>
                       <FormLabel className="text-white">Email</FormLabel>
                       <FormControl>
-                        <div className="relative pointer-events-auto">
-                          <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none" />
+                        <div className="relative">
+                          <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none z-10" />
                           <Input
+                            id={`email-${field.name}`}
                             type="email"
                             placeholder="Enter your email"
-                            className="pl-10 bg-suku-surface border-suku-border text-white pointer-events-auto cursor-text"
-                            {...field}
+                            className="pl-10 bg-suku-surface border-suku-border text-white"
                             autoComplete="email"
-                            disabled={false}
+                            aria-invalid={!!fieldState.error}
+                            {...field}
                           />
                         </div>
                       </FormControl>
@@ -316,23 +329,26 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                 <FormField
                   control={registerForm.control}
                   name="password"
-                  render={({ field }) => (
+                  render={({ field, fieldState }) => (
                     <FormItem>
                       <FormLabel className="text-white">Password</FormLabel>
                       <FormControl>
-                        <div className="relative pointer-events-auto">
-                          <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none" />
+                        <div className="relative">
+                          <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none z-10" />
                           <Input
+                            id={`password-${field.name}`}
                             type={showPassword ? "text" : "password"}
                             placeholder="Create a password"
-                            className="pl-10 pr-10 bg-suku-surface border-suku-border text-white pointer-events-auto cursor-text"
+                            className="pl-10 pr-10 bg-suku-surface border-suku-border text-white"
+                            autoComplete="new-password"
+                            aria-invalid={!!fieldState.error}
                             {...field}
-                            disabled={false}
                           />
                           <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
-                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white pointer-events-auto"
+                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white z-10"
+                            tabIndex={-1}
                           >
                             {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                           </button>
@@ -346,23 +362,26 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                 <FormField
                   control={registerForm.control}
                   name="confirmPassword"
-                  render={({ field }) => (
+                  render={({ field, fieldState }) => (
                     <FormItem>
                       <FormLabel className="text-white">Confirm Password</FormLabel>
                       <FormControl>
-                        <div className="relative pointer-events-auto">
-                          <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none" />
+                        <div className="relative">
+                          <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none z-10" />
                           <Input
+                            id={`confirmPassword-${field.name}`}
                             type={showConfirmPassword ? "text" : "password"}
                             placeholder="Confirm your password"
-                            className="pl-10 pr-10 bg-suku-surface border-suku-border text-white pointer-events-auto cursor-text"
+                            className="pl-10 pr-10 bg-suku-surface border-suku-border text-white"
+                            autoComplete="new-password"
+                            aria-invalid={!!fieldState.error}
                             {...field}
-                            disabled={false}
                           />
                           <button
                             type="button"
                             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white pointer-events-auto"
+                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white z-10"
+                            tabIndex={-1}
                           >
                             {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                           </button>
