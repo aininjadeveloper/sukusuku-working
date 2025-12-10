@@ -125,49 +125,49 @@ export default function Navigation() {
           </button>
 
           {/* Apple-style Desktop Navigation */}
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-center space-x-8">
+          <div className="hidden md:block flex-1">
+            <div className="ml-10 flex items-center space-x-1 lg:space-x-8">
               <button
                 onClick={() => scrollToSection("home")}
-                className="text-white hover:text-suku-red transition-colors duration-200 font-medium"
+                className="text-white hover:text-suku-red transition-colors duration-200 font-medium text-sm lg:text-base px-2 lg:px-0"
               >
                 Home
               </button>
               <button
                 onClick={() => scrollToSection("about")}
-                className="text-white hover:text-suku-red transition-colors duration-200 font-medium"
+                className="text-white hover:text-suku-red transition-colors duration-200 font-medium text-sm lg:text-base px-2 lg:px-0"
               >
                 About
               </button>
               <button
                 onClick={() => scrollToSection("features")}
-                className="text-white hover:text-suku-red transition-colors duration-200 font-medium font-sans"
+                className="text-white hover:text-suku-red transition-colors duration-200 font-medium text-sm lg:text-base px-2 lg:px-0 font-sans"
               >
                 Features
               </button>
               <button
                 onClick={() => scrollToSection("use-cases")}
-                className="text-white hover:text-suku-red transition-colors duration-200 font-medium font-sans"
+                className="text-white hover:text-suku-red transition-colors duration-200 font-medium text-sm lg:text-base px-2 lg:px-0 font-sans"
               >
                 Use Cases
               </button>
               <button
                 onClick={() => scrollToSection("models")}
-                className="text-white hover:text-suku-red transition-colors duration-200 font-medium font-sans"
+                className="text-white hover:text-suku-red transition-colors duration-200 font-medium text-sm lg:text-base px-2 lg:px-0 font-sans"
               >
                 AI Models
               </button>
               <button
                 onClick={() => scrollToSection("contact")}
-                className="text-white hover:text-suku-red transition-colors duration-200 font-medium"
+                className="text-white hover:text-suku-red transition-colors duration-200 font-medium text-sm lg:text-base px-2 lg:px-0"
               >
                 Contact
               </button>
             </div>
           </div>
 
-          {/* User Authentication Section */}
-          <div className="hidden md:flex items-center space-x-4">
+          {/* User Authentication Section - With Gap */}
+          <div className="hidden md:flex items-center gap-6 ml-auto flex-shrink-0">
             {isLoading ? (
               <div className="w-8 h-8 rounded-full bg-gray-700 animate-pulse"></div>
             ) : user ? (
@@ -262,10 +262,10 @@ export default function Navigation() {
                 </div>
               </div>
             ) : (
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center gap-6">
                 <button
                   onClick={() => navigate("/login")}
-                  className="text-white hover:text-suku-red transition-colors duration-200 font-medium"
+                  className="text-white hover:text-suku-red transition-colors duration-200 font-medium text-sm lg:text-base whitespace-nowrap"
                 >
                   Login
                 </button>
@@ -325,105 +325,118 @@ export default function Navigation() {
           </div>
         </div>
 
-        {/* Apple-style Mobile Navigation */}
+        {/* Apple-style Mobile Navigation - Scrollable Menu */}
         {isMenuOpen && (
-          <div className="md:hidden">
-            <div className="px-4 pt-4 pb-6 space-y-1 bg-suku-surface/95 backdrop-blur-xl border-t border-suku-border">
+          <div className="md:hidden max-h-[calc(100vh-80px)] overflow-y-auto">
+            <div className="px-4 pt-4 pb-8 space-y-2 bg-suku-surface/95 backdrop-blur-xl border-t border-suku-border">
+              {/* Navigation Links */}
               <button
                 onClick={() => scrollToSection("home")}
-                className="block w-full text-left px-3 py-3 text-white hover:text-suku-red transition-colors duration-200 font-medium"
+                className="block w-full text-left px-3 py-3 text-white hover:text-suku-red transition-colors duration-200 font-medium text-sm"
               >
                 Home
               </button>
               <button
                 onClick={() => scrollToSection("about")}
-                className="block w-full text-left px-3 py-3 text-white hover:text-suku-red transition-colors duration-200 font-medium"
+                className="block w-full text-left px-3 py-3 text-white hover:text-suku-red transition-colors duration-200 font-medium text-sm"
               >
                 About
               </button>
               <button
                 onClick={() => scrollToSection("features")}
-                className="block w-full text-left px-3 py-3 text-white hover:text-suku-red transition-colors duration-200 font-medium"
+                className="block w-full text-left px-3 py-3 text-white hover:text-suku-red transition-colors duration-200 font-medium text-sm"
               >
                 Features
               </button>
               <button
                 onClick={() => scrollToSection("use-cases")}
-                className="block w-full text-left px-3 py-3 text-white hover:text-suku-red transition-colors duration-200 font-medium"
+                className="block w-full text-left px-3 py-3 text-white hover:text-suku-red transition-colors duration-200 font-medium text-sm"
               >
                 Use Cases
               </button>
               <button
                 onClick={() => scrollToSection("models")}
-                className="block w-full text-left px-3 py-3 text-white hover:text-suku-red transition-colors duration-200 font-medium"
+                className="block w-full text-left px-3 py-3 text-white hover:text-suku-red transition-colors duration-200 font-medium text-sm"
               >
                 AI Models
               </button>
               <button
                 onClick={() => scrollToSection("contact")}
-                className="block w-full text-left px-3 py-3 text-white hover:text-suku-red transition-colors duration-200 font-medium"
+                className="block w-full text-left px-3 py-3 text-white hover:text-suku-red transition-colors duration-200 font-medium text-sm"
               >
                 Contact
               </button>
+
+              {/* Divider */}
+              <div className="border-t border-suku-border my-4"></div>
+
+              {/* Auth Section */}
               {user ? (
-                <div className="mt-4 space-y-2">
+                <div className="space-y-3">
+                  <div className="px-3 py-2 text-gray-400 text-xs font-semibold uppercase">
+                    Account
+                  </div>
                   <button
                     onClick={() => {
                       navigate("/account");
                       setIsMenuOpen(false);
                     }}
-                    className="flex items-center w-full text-left px-3 py-3 text-white hover:text-suku-red transition-colors duration-200 font-medium border border-suku-border rounded-lg"
+                    className="flex items-center w-full text-left px-3 py-3 text-white hover:text-suku-red transition-colors duration-200 font-medium text-sm rounded-lg border border-suku-border"
                   >
-                    <UserIcon className="w-4 h-4 mr-2" />
+                    <UserIcon className="w-4 h-4 mr-2 flex-shrink-0" />
                     Account Dashboard
                   </button>
                   <button
                     onClick={() => logoutMutation.mutate()}
                     disabled={logoutMutation.isPending}
-                    className="flex items-center w-full text-left px-3 py-3 text-white hover:text-red-500 transition-colors duration-200 font-medium border border-red-600 rounded-lg"
+                    className="flex items-center w-full text-left px-3 py-3 text-white hover:text-red-500 transition-colors duration-200 font-medium text-sm rounded-lg border border-red-600"
                   >
-                    <LogOut className="w-4 h-4 mr-2" />
+                    <LogOut className="w-4 h-4 mr-2 flex-shrink-0" />
                     {logoutMutation.isPending ? "Logging out..." : "Logout"}
                   </button>
                 </div>
               ) : (
-                <a
-                  href="/api/auth/google"
-                  className="block w-full text-center px-3 py-3 text-white hover:text-suku-red transition-colors duration-200 font-medium border border-suku-border rounded-lg mt-4"
-                >
-                  Login with Google
-                </a>
+                <div className="px-3 py-3 text-white hover:text-suku-red transition-colors duration-200 font-medium text-sm rounded-lg border border-suku-border text-center">
+                  <a href="/api/auth/google" className="block">
+                    Login with Google
+                  </a>
+                </div>
               )}
-              <div className="mt-4 space-y-2">
-                <Button
-                  onClick={() => {
-                    if (user) {
-                      window.location.href = "penora";
-                    } else {
-                      navigate("/login");
-                    }
-                    setIsMenuOpen(false);
-                  }}
-                  className="w-full bg-suku-red hover:bg-suku-red-hover text-white px-6 py-3 rounded-lg font-medium transition-all duration-200"
-                >
-                  Try Penora
-                </Button>
-                <Button
-                  onClick={() => {
-                    if (user) {
-                      window.location.href =
-                        import.meta.env.VITE_IMAGEGENE_BASE_URL;
-                    } else {
-                      navigate("/login");
-                    }
-                    setIsMenuOpen(false);
-                  }}
-                  variant="outline"
-                  className="w-full border-suku-border text-white hover:bg-suku-red hover:text-white hover:border-suku-red px-6 py-3 rounded-lg font-medium transition-all duration-200"
-                >
-                  Try ImageGene
-                </Button>
+
+              {/* Explore Section */}
+              <div className="border-t border-suku-border my-4"></div>
+              <div className="px-3 py-2 text-gray-400 text-xs font-semibold uppercase">
+                Explore
               </div>
+              <Button
+                onClick={() => {
+                  if (user) {
+                    window.location.href = "/penora";
+                  } else {
+                    navigate("/login");
+                  }
+                  setIsMenuOpen(false);
+                }}
+                className="w-full bg-suku-red hover:bg-suku-red-hover text-white px-4 py-2.5 rounded-lg font-medium transition-all duration-200 text-sm"
+              >
+                <Sparkles className="w-4 h-4 mr-2 inline-block" />
+                Try Penora
+              </Button>
+              <Button
+                onClick={() => {
+                  if (user) {
+                    window.location.href = import.meta.env.VITE_IMAGEGENE_BASE_URL;
+                  } else {
+                    navigate("/login");
+                  }
+                  setIsMenuOpen(false);
+                }}
+                variant="outline"
+                className="w-full border-suku-border text-white hover:bg-suku-red hover:text-white hover:border-suku-red px-4 py-2.5 rounded-lg font-medium transition-all duration-200 text-sm"
+              >
+                <Image className="w-4 h-4 mr-2 inline-block" />
+                Try ImageGene
+              </Button>
             </div>
           </div>
         )}
