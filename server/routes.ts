@@ -40,6 +40,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   }
 
+  app.set('trust proxy', 1); // Trust first proxy (Nginx)
+
   app.use(session({
     secret: process.env.SESSION_SECRET || 'fallback-secret-key',
     store: sessionStore,
@@ -48,6 +50,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     cookie: {
       secure: process.env.NODE_ENV === 'production',
       httpOnly: true,
+      sameSite: 'lax', // Required for OAuth redirects
       maxAge: 24 * 60 * 60 * 1000 // 24 hours
     }
   }));
