@@ -69,6 +69,7 @@ export default function AdminDashboard() {
     const { data: stats, isLoading, error } = useQuery<AdminStats>({
         queryKey: ["/api/admin/stats"],
         retry: false,
+        refetchInterval: 5000, // Poll every 5 seconds for real-time updates
     });
 
     const handleLogout = async () => {
