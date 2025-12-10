@@ -28,10 +28,12 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
   // Reset forms when switching between login/signup
   const handleToggleMode = () => {
     setIsLogin(!isLogin);
-    loginForm.reset();
-    registerForm.reset();
-    loginForm.clearErrors();
-    registerForm.clearErrors();
+    // Don't reset forms - just clear errors instead
+    if (isLogin) {
+      registerForm.reset(undefined, { keepValues: false });
+    } else {
+      loginForm.reset(undefined, { keepValues: false });
+    }
   };
 
   const loginForm = useForm<LoginInput>({
@@ -44,7 +46,7 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
 
   const registerForm = useForm<RegisterInput>({
     resolver: zodResolver(registerSchema),
-    mode: "onSubmit",
+    mode: "onChange",
     defaultValues: {
       email: "",
       password: "",
@@ -253,12 +255,12 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                         <FormLabel className="text-white">First Name</FormLabel>
                         <FormControl>
                           <div className="relative">
-                            <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                            <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none" />
                             <Input
                               placeholder="First name"
-                              className="pl-10 bg-suku-surface border-suku-border text-white"
+                              className="pl-10 bg-suku-surface border-suku-border text-white pointer-events-auto cursor-text"
                               {...field}
-                              value={field.value ?? ""}
+                              disabled={false}
                             />
                           </div>
                         </FormControl>
@@ -276,9 +278,9 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                         <FormControl>
                           <Input
                             placeholder="Last name"
-                            className="bg-suku-surface border-suku-border text-white"
+                            className="bg-suku-surface border-suku-border text-white pointer-events-auto cursor-text"
                             {...field}
-                            value={field.value ?? ""}
+                            disabled={false}
                           />
                         </FormControl>
                         <FormMessage />
@@ -301,14 +303,7 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                             placeholder="Enter your email"
                             className="pl-10 bg-suku-surface border-suku-border text-white pointer-events-auto cursor-text"
                             {...field}
-                            value={field.value || ""}
                             autoComplete="email"
-                            onChange={(e) => {
-                              field.onChange(e);
-                            }}
-                            onInputCapture={(e) => {
-                              e.stopPropagation();
-                            }}
                             disabled={false}
                           />
                         </div>
