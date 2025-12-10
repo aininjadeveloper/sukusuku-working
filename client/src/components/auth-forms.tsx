@@ -294,16 +294,22 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                     <FormItem>
                       <FormLabel className="text-white">Email</FormLabel>
                       <FormControl>
-                        <div className="relative">
-                          <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                        <div className="relative pointer-events-auto">
+                          <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none" />
                           <Input
                             type="email"
                             placeholder="Enter your email"
-                            className="pl-10 bg-suku-surface border-suku-border text-white"
+                            className="pl-10 bg-suku-surface border-suku-border text-white pointer-events-auto cursor-text"
                             {...field}
                             value={field.value || ""}
                             autoComplete="email"
-                            onChange={field.onChange}
+                            onChange={(e) => {
+                              field.onChange(e);
+                            }}
+                            onInputCapture={(e) => {
+                              e.stopPropagation();
+                            }}
+                            disabled={false}
                           />
                         </div>
                       </FormControl>
@@ -319,18 +325,19 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                     <FormItem>
                       <FormLabel className="text-white">Password</FormLabel>
                       <FormControl>
-                        <div className="relative">
-                          <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                        <div className="relative pointer-events-auto">
+                          <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none" />
                           <Input
                             type={showPassword ? "text" : "password"}
                             placeholder="Create a password"
-                            className="pl-10 pr-10 bg-suku-surface border-suku-border text-white"
+                            className="pl-10 pr-10 bg-suku-surface border-suku-border text-white pointer-events-auto cursor-text"
                             {...field}
+                            disabled={false}
                           />
                           <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
-                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white"
+                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white pointer-events-auto"
                           >
                             {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                           </button>
@@ -348,18 +355,19 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                     <FormItem>
                       <FormLabel className="text-white">Confirm Password</FormLabel>
                       <FormControl>
-                        <div className="relative">
-                          <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                        <div className="relative pointer-events-auto">
+                          <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none" />
                           <Input
                             type={showConfirmPassword ? "text" : "password"}
                             placeholder="Confirm your password"
-                            className="pl-10 pr-10 bg-suku-surface border-suku-border text-white"
+                            className="pl-10 pr-10 bg-suku-surface border-suku-border text-white pointer-events-auto cursor-text"
                             {...field}
+                            disabled={false}
                           />
                           <button
                             type="button"
                             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white"
+                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white pointer-events-auto"
                           >
                             {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                           </button>
