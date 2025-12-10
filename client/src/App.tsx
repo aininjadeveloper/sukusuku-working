@@ -23,6 +23,7 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/home" component={Home} />
       <Route path="/account" component={Account} />
       <Route path="/login" component={Login} />
       <Route path="/penora" component={PenoraFull} />
