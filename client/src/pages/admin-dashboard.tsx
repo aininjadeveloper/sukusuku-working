@@ -45,6 +45,8 @@ interface AdminStats {
         totalCreditsUsed: number;
         avgPenoraCredits: number;
         avgImageGeneCredits: number;
+        totalPenoraRemaining: number;
+        totalImageGeneRemaining: number;
     };
     recentUsers: Array<{
         id: string;
@@ -54,6 +56,18 @@ interface AdminStats {
         createdAt: string;
         lastLoginAt: string | null;
         totalCreditsUsed: number;
+        penoraCredits: number;
+        imagegeneCredits: number;
+    }>;
+    topCreditsUsers: Array<{
+        id: string;
+        email: string;
+        firstName: string;
+        lastName: string;
+        totalCreditsUsed: number;
+        penoraCredits: number;
+        imagegeneCredits: number;
+        lastLoginAt: string | null;
     }>;
     dailyRegistrations: Array<{
         date: string;
@@ -198,6 +212,34 @@ export default function AdminDashboard() {
                         <p className="text-xs text-gray-400 mt-1">Avg credits per user</p>
                     </CardContent>
                 </Card>
+
+                {/* New Credit Breakdown Cards */}
+                <Card className="bg-suku-surface border-suku-border">
+                    <CardHeader className="flex flex-row items-center justify-between pb-2">
+                        <CardTitle className="text-sm font-medium text-gray-400">
+                            Penora Credits Remaining
+                        </CardTitle>
+                        <CreditCard className="h-4 w-4 text-orange-400" />
+                    </CardHeader>
+                    <CardContent>
+                        <div className="text-2xl font-bold text-white">{stats.overview.totalPenoraRemaining}</div>
+                        <p className="text-xs text-orange-400 mt-1">Avg: {stats.overview.avgPenoraCredits} per user</p>
+                    </CardContent>
+                </Card>
+
+                <Card className="bg-suku-surface border-suku-border">
+                    <CardHeader className="flex flex-row items-center justify-between pb-2">
+                        <CardTitle className="text-sm font-medium text-gray-400">
+                            ImageGene Credits Remaining
+                        </CardTitle>
+                        <CreditCard className="h-4 w-4 text-cyan-400" />
+                    </CardHeader>
+                    <CardContent>
+                        <div className="text-2xl font-bold text-white">{stats.overview.totalImageGeneRemaining}</div>
+                        <p className="text-xs text-cyan-400 mt-1">Avg: {stats.overview.avgImageGeneCredits} per user</p>
+                    </CardContent>
+                </Card>
+            </div>
             </div>
 
             {/* Charts Section */}
@@ -257,12 +299,82 @@ export default function AdminDashboard() {
                 </Card>
             </div>
 
-            {/* Recent Users Table */}
+            {/* Top Users & Insights */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                {/* Top Credit Usage */}
+                <Card className="bg-suku-surface border-suku-border">
+                    <CardHeader>
+                        <CardTitle className="text-white">Top Credit Users</CardTitle>
+                        <CardDescription className="text-gray-400">Most active users by credit usage</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="space-y-4">
+                            {stats.topCreditsUsers.map((user, index) => (
+                                <div key={user.id} className="flex items-center justify-between p-3 bg-suku-black/50 rounded-lg hover:bg-white/5 transition-colors">
+                                    <div className="flex items-center gap-3">
+                                        <div className="flex items-center justify-center w-8 h-8 bg-suku-red rounded-full text-white text-xs font-bold">
+                                            {index + 1}
+                                        </div>
+                                        <div>
+                                            <div className="text-sm font-semibold text-white">{user.firstName} {user.lastName}</div>
+                                            <div className="text-xs text-gray-400">{user.email}</div>
+                                        </div>
+                                    </div>
+                                    <div className="text-right">
+                                        <div className="text-sm font-bold text-blue-400">{user.totalCreditsUsed} used</div>
+                                        <div className="text-xs text-gray-400">P:{user.penoraCredits} I:{user.imagegeneCredits}</div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </CardContent>
+                </Card>
+
+                {/* Credit Health */}
+                <Card className="bg-suku-surface border-suku-border">
+                    <CardHeader>
+                        <CardTitle className="text-white">Credit Health</CardTitle>
+                        <CardDescription className="text-gray-400">System-wide credit metrics</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                        <div className="p-3 bg-suku-black/50 rounded-lg">
+                            <div className="flex justify-between items-center mb-2">
+                                <span className="text-sm text-gray-400">Total Credits Issued</span>
+                                <span className="text-sm font-bold text-white">{(stats.overview.totalPenoraRemaining + stats.overview.totalImageGeneRemaining) + stats.overview.totalCreditsUsed}</span>
+                            </div>
+                            <div className="w-full bg-suku-black rounded-full h-2">
+                                <div 
+                                    className="bg-gradient-to-r from-suku-red to-orange-500 h-2 rounded-full"
+                                    style={{
+                                        width: `${stats.overview.totalCreditsUsed > 0 ? (stats.overview.totalCreditsUsed / ((stats.overview.totalPenoraRemaining + stats.overview.totalImageGeneRemaining) + stats.overview.totalCreditsUsed)) * 100 : 0}%`
+                                    }}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-2">
+                            <div className="p-2 bg-orange-500/10 border border-orange-500/50 rounded-lg">
+                                <div className="text-xs text-orange-400 mb-1">Penora Used</div>
+                                <div className="text-lg font-bold text-orange-400">{Math.round((stats.overview.totalPenoraRemaining + stats.overview.totalImageGeneRemaining) > 0 ? (stats.overview.totalPenoraRemaining * 100 / (stats.overview.totalPenoraRemaining + stats.overview.totalImageGeneRemaining)) : 50)}%</div>
+                            </div>
+                            <div className="p-2 bg-cyan-500/10 border border-cyan-500/50 rounded-lg">
+                                <div className="text-xs text-cyan-400 mb-1">ImageGene Used</div>
+                                <div className="text-lg font-bold text-cyan-400">{Math.round((stats.overview.totalPenoraRemaining + stats.overview.totalImageGeneRemaining) > 0 ? (stats.overview.totalImageGeneRemaining * 100 / (stats.overview.totalPenoraRemaining + stats.overview.totalImageGeneRemaining)) : 50)}%</div>
+                            </div>
+                        </div>
+
+                        <div className="p-3 bg-suku-black/50 rounded-lg border-l-2 border-green-500">
+                            <div className="text-xs text-gray-400 mb-1">Avg Credits per User</div>
+                            <div className="text-2xl font-bold text-green-400">{Math.round((stats.overview.avgPenoraCredits + stats.overview.avgImageGeneCredits) / 2)}</div>
+                        </div>
+                    </CardContent>
+                </Card>
+            </div>
             <Card className="bg-suku-surface border-suku-border">
                 <CardHeader className="flex flex-row items-center justify-between">
                     <div>
                         <CardTitle className="text-white">Recent Users</CardTitle>
-                        <CardDescription className="text-gray-400">Latest platform registrations</CardDescription>
+                        <CardDescription className="text-gray-400">Latest platform registrations with credit details</CardDescription>
                     </div>
                     <div className="relative w-64">
                         <Search className="absolute left-2 top-2.5 h-4 w-4 text-gray-400" />
@@ -282,7 +394,9 @@ export default function AdminDashboard() {
                                     <th className="px-6 py-3">User</th>
                                     <th className="px-6 py-3">Joined</th>
                                     <th className="px-6 py-3">Last Login</th>
-                                    <th className="px-6 py-3">Credits Used</th>
+                                    <th className="px-6 py-3">Total Used</th>
+                                    <th className="px-6 py-3">Penora Balance</th>
+                                    <th className="px-6 py-3">ImageGene Balance</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -306,8 +420,18 @@ export default function AdminDashboard() {
                                             {user.lastLoginAt ? new Date(user.lastLoginAt).toLocaleString() : 'Never'}
                                         </td>
                                         <td className="px-6 py-4">
-                                            <Badge variant="outline" className="text-gray-300 border-gray-600">
+                                            <Badge variant="outline" className={`text-xs font-semibold ${user.totalCreditsUsed > 0 ? 'border-blue-500 text-blue-400' : 'border-gray-600 text-gray-400'}`}>
                                                 {user.totalCreditsUsed}
+                                            </Badge>
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            <Badge variant="outline" className={`text-xs font-semibold ${user.penoraCredits > 0 ? 'border-orange-500 text-orange-400' : 'border-red-500 text-red-400'}`}>
+                                                {user.penoraCredits}
+                                            </Badge>
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            <Badge variant="outline" className={`text-xs font-semibold ${user.imagegeneCredits > 0 ? 'border-cyan-500 text-cyan-400' : 'border-red-500 text-red-400'}`}>
+                                                {user.imagegeneCredits}
                                             </Badge>
                                         </td>
                                     </tr>
