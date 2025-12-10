@@ -7,7 +7,7 @@ import {
   type InsertAuthToken,
 } from "@shared/schema";
 import { db } from "./db";
-import { eq, and } from "drizzle-orm";
+import { eq, and, sql } from "drizzle-orm";
 
 // Interface for storage operations
 export interface IStorage {
@@ -17,8 +17,9 @@ export interface IStorage {
   getUserByEmail(email: string): Promise<User | undefined>;
   upsertUser(user: UpsertUser): Promise<User>;
   updateUser(id: string, updates: Partial<UpsertUser>): Promise<User | undefined>;
-  updateUserCredits(id: string, penoraCredits?: number, imagegeneCredits?: number): Promise<User | undefined>;
-  
+  updateUserCredits(id: string, penoraCredits?: number, imagegeneCredits?: number, creditsUsedDelta?: number): Promise<User | undefined>;
+  updateUserLastLogin(id: string): Promise<void>;
+
   // Token operations
   createAuthToken(token: InsertAuthToken): Promise<AuthToken>;
   getAuthToken(token: string): Promise<AuthToken | undefined>;
@@ -70,7 +71,7 @@ export class DatabaseStorage implements IStorage {
             lastLoginAt: new Date(),
           })
           .returning();
-        
+
         // Send welcome email to new users
         if (newUser.email) {
           try {
@@ -84,7 +85,7 @@ export class DatabaseStorage implements IStorage {
             console.error('Failed to send welcome email:', error);
           }
         }
-        
+
         return newUser;
       }
     } catch (error) {
@@ -93,10 +94,15 @@ export class DatabaseStorage implements IStorage {
     }
   }
 
-  async updateUserCredits(id: string, penoraCredits?: number, imagegeneCredits?: number): Promise<User | undefined> {
+  async updateUserCredits(id: string, penoraCredits?: number, imagegeneCredits?: number, creditsUsedDelta?: number): Promise<User | undefined> {
     const updateData: any = { updatedAt: new Date() };
     if (penoraCredits !== undefined) updateData.penoraCredits = penoraCredits;
     if (imagegeneCredits !== undefined) updateData.imagegeneCredits = imagegeneCredits;
+
+    // If we have a delta for used credits, increment the total
+    if (creditsUsedDelta && creditsUsedDelta > 0) {
+      updateData.totalCreditsUsed = sql`${users.totalCreditsUsed} + ${creditsUsedDelta}`;
+    }
 
     const [user] = await db
       .update(users)
@@ -104,6 +110,13 @@ export class DatabaseStorage implements IStorage {
       .where(eq(users.id, id))
       .returning();
     return user;
+  }
+
+  async updateUserLastLogin(id: string): Promise<void> {
+    await db
+      .update(users)
+      .set({ lastLoginAt: new Date() })
+      .where(eq(users.id, id));
   }
 
   async getUserByEmail(email: string): Promise<User | undefined> {
@@ -126,7 +139,7 @@ export class DatabaseStorage implements IStorage {
   async sendWelcomeEmail(user: User): Promise<void> {
     try {
       const nodemailer = (await import('nodemailer')).default;
-      
+
       if (!process.env.GMAIL_USERNAME || !process.env.GMAIL_APP_PASSWORD) {
         console.log('Gmail credentials not configured for welcome email');
         return;
@@ -141,7 +154,7 @@ export class DatabaseStorage implements IStorage {
       });
 
       const firstName = user.firstName || 'Creator';
-      
+
       const mailOptions = {
         from: 'hello@sukusuku.ai',
         to: user.email,
@@ -283,7 +296,7 @@ Note: Communication will be monitored by our developers team and management thro
   async sendContactEmail(contactData: { name: string; email: string; message: string }): Promise<void> {
     try {
       const nodemailer = (await import('nodemailer')).default;
-      
+
       if (!process.env.GMAIL_USERNAME || !process.env.GMAIL_APP_PASSWORD) {
         console.log('Gmail credentials not configured for contact email');
         return;

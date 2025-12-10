@@ -56,6 +56,14 @@ adminRouter.get("/stats", isAdmin, async (req, res) => {
             .where(sql`${users.createdAt} > ${oneDayAgo}`);
         const newUsers24h = Number(newUsersResult[0]?.count || 0);
 
+        // Active Users (Last 10 mins)
+        const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000);
+        const activeUsersResult = await db
+            .select({ count: sql<number>`count(*)` })
+            .from(users)
+            .where(sql`${users.lastLoginAt} > ${tenMinutesAgo}`);
+        const activeUsers = Number(activeUsersResult[0]?.count || 0);
+
         // 3. Total Credits Used
         const aggregatedCredits = await db
             .select({
@@ -94,6 +102,7 @@ adminRouter.get("/stats", isAdmin, async (req, res) => {
             overview: {
                 totalUsers,
                 newUsers24h,
+                activeUsers,
                 totalCreditsUsed: Number(aggregatedCredits[0]?.totalUsed || 0),
                 avgPenoraCredits: Math.round(Number(aggregatedCredits[0]?.avgPenora || 0)),
                 avgImageGeneCredits: Math.round(Number(aggregatedCredits[0]?.avgImageGene || 0)),

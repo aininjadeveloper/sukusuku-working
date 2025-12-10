@@ -34,7 +34,7 @@ export const users = pgTable("users", {
   authProvider: varchar("auth_provider").default("google"), // 'google' or 'email'
   isEmailVerified: boolean("is_email_verified").default(false),
   welcomeEmailSent: boolean("welcome_email_sent").default(false),
-  penoraCredits: integer("penora_credits").default(100),
+  penoraCredits: integer("penora_credits").default(50),
   imagegeneCredits: integer("imagegene_credits").default(50),
   totalCreditsUsed: integer("total_credits_used").default(0),
   lastLoginAt: timestamp("last_login_at"),

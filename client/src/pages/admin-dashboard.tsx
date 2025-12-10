@@ -41,6 +41,7 @@ interface AdminStats {
     overview: {
         totalUsers: number;
         newUsers24h: number;
+        activeUsers: number;
         totalCreditsUsed: number;
         avgPenoraCredits: number;
         avgImageGeneCredits: number;
@@ -156,8 +157,16 @@ export default function AdminDashboard() {
                         <UserPlus className="h-4 w-4 text-green-500" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold text-white">+{stats.overview.newUsers24h}</div>
-                        <p className="text-xs text-green-500 mt-1">Growth rate</p>
+                        <div className="flex justify-between items-end">
+                            <div>
+                                <div className="text-2xl font-bold text-white">+{stats.overview.newUsers24h}</div>
+                                <p className="text-xs text-green-500 mt-1">Growth rate</p>
+                            </div>
+                            <div className="text-right">
+                                <div className="text-xl font-bold text-white mb-1">{stats.overview.activeUsers}</div>
+                                <p className="text-xs text-suku-red">Active now</p>
+                            </div>
+                        </div>
                     </CardContent>
                 </Card>
 

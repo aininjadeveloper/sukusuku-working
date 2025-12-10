@@ -152,6 +152,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   const authMiddleware = async (req: any, res: any, next: any) => {
     // Check if user is authenticated via session (Google OAuth or Replit)
     if (req.isAuthenticated && req.isAuthenticated() && req.user) {
+      // Background activity tracking (fire and forget)
+      const now = new Date();
+      if (!req.user.lastLoginAt || (now.getTime() - new Date(req.user.lastLoginAt).getTime() > 5 * 60 * 1000)) {
+        storage.updateUserLastLogin(req.user.id).catch(err => console.error("Error updating last login:", err));
+        req.user.lastLoginAt = now; // Update locally for this request
+      }
       return next();
     }
 
@@ -162,6 +168,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const user = await AuthService.getUserByToken(token);
         if (user) {
           req.user = user;
+          // Background activity tracking
+          const now = new Date();
+          if (!user.lastLoginAt || (now.getTime() - new Date(user.lastLoginAt).getTime() > 5 * 60 * 1000)) {
+            storage.updateUserLastLogin(user.id).catch(err => console.error("Error updating last login:", err));
+          }
           return next();
         }
       } catch (error) {
@@ -394,17 +405,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Calculate new credit amounts
       let newPenoraCredits = user.penoraCredits || 100;
       let newImagegeneCredits = user.imagegeneCredits || 50;
+      let totalUsedDelta = 0;
 
       if (penoraCreditsUsed) {
         newPenoraCredits = Math.max(0, newPenoraCredits - penoraCreditsUsed);
+        totalUsedDelta += penoraCreditsUsed;
       }
 
       if (imagegeneCreditsUsed) {
         newImagegeneCredits = Math.max(0, newImagegeneCredits - imagegeneCreditsUsed);
+        totalUsedDelta += imagegeneCreditsUsed;
       }
 
       // Update credits in database
-      const updatedUser = await storage.updateUserCredits(userId, newPenoraCredits, newImagegeneCredits);
+      const updatedUser = await storage.updateUserCredits(userId, newPenoraCredits, newImagegeneCredits, totalUsedDelta);
 
       console.log(`Credits synced for user ${userId}: Penora ${newPenoraCredits}, ImageGene ${newImagegeneCredits}`);
 
