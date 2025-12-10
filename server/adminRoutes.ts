@@ -115,3 +115,19 @@ adminRouter.get("/stats", isAdmin, async (req, res) => {
         res.status(500).json({ message: "Failed to fetch admin stats" });
     }
 });
+
+// One-time fix: Update all users' Penora Credits to 50
+adminRouter.post("/fix-credits", isAdmin, async (req, res) => {
+    try {
+        console.log("Starting credit fix migration...");
+        const result = await db.update(users)
+            .set({ penoraCredits: 50 })
+            .returning();
+
+        console.log(`Updated ${result.length} users to 50 Penora Credits.`);
+        res.json({ message: `Successfully updated ${result.length} users.`, count: result.length });
+    } catch (error) {
+        console.error("Credit fix error:", error);
+        res.status(500).json({ message: "Failed to fix credits" });
+    }
+});
