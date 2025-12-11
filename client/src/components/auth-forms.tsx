@@ -185,7 +185,7 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                 <FormField
                   control={loginForm.control}
                   name="email"
-                  render={({ field, fieldState }) => (
+                  render={({ field: { ref, ...field }, fieldState }) => (
                     <FormItem>
                       <FormLabel className="text-white">Email</FormLabel>
                       <FormControl>
@@ -195,9 +195,8 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                           className="bg-suku-surface border-suku-border text-white"
                           autoComplete="email"
                           aria-invalid={!!fieldState.error}
-                          readOnly={false}
-                          disabled={false}
                           {...field}
+                          ref={ref}
                         />
                       </FormControl>
                       <FormMessage />
@@ -299,7 +298,7 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                 <FormField
                   control={registerForm.control}
                   name="email"
-                  render={({ field, fieldState }) => (
+                  render={({ field: { ref, ...field }, fieldState }) => (
                     <FormItem>
                       <FormLabel className="text-white">Email</FormLabel>
                       <FormControl>
@@ -309,9 +308,8 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                           className="bg-suku-surface border-suku-border text-white"
                           autoComplete="email"
                           aria-invalid={!!fieldState.error}
-                          readOnly={false}
-                          disabled={false}
                           {...field}
+                          ref={ref}
                         />
                       </FormControl>
                       <FormMessage />
