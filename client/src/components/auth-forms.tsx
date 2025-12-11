@@ -195,8 +195,9 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                             id={`login-email-${field.name}`}
                             name={field.name}
                             type="email"
+                            inputMode="email"
                             placeholder="Enter your email"
-                            className="pl-10 bg-suku-surface border-suku-border text-white"
+                            className="pl-10 bg-suku-surface border-suku-border text-white pointer-events-auto"
                             autoComplete="email"
                             aria-invalid={!!fieldState.error}
                             {...field}
@@ -315,8 +316,9 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                             id={`email-${field.name}`}
                             name={field.name}
                             type="email"
+                            inputMode="email"
                             placeholder="Enter your email"
-                            className="pl-10 bg-suku-surface border-suku-border text-white"
+                            className="pl-10 bg-suku-surface border-suku-border text-white pointer-events-auto"
                             autoComplete="email"
                             aria-invalid={!!fieldState.error}
                             autoFocus
