@@ -188,23 +188,17 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                   render={({ field, fieldState }) => (
                     <FormItem>
                       <FormLabel className="text-white">Email</FormLabel>
-                      <Input
-                        id={`login-email-${field.name}`}
-                        name={field.name}
-                        type="email"
-                        inputMode="email"
-                        placeholder="Enter your email"
-                        className="bg-suku-surface border-suku-border text-white w-full"
-                        autoComplete="email"
-                        autoCapitalize="none"
-                        autoCorrect="off"
-                        spellCheck={false}
-                        aria-invalid={!!fieldState.error}
-                        value={field.value ?? ""}
-                        onChange={(event) => field.onChange(event.target.value)}
-                        onBlur={field.onBlur}
-                        ref={field.ref}
-                      />
+                      <FormControl>
+                        <Input
+                          id={`login-email-${field.name}`}
+                          type="email"
+                          placeholder="Enter your email"
+                          className="bg-suku-surface border-suku-border text-white"
+                          autoComplete="email"
+                          aria-invalid={!!fieldState.error}
+                          {...field}
+                        />
+                      </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -310,24 +304,17 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                   render={({ field, fieldState }) => (
                     <FormItem>
                       <FormLabel className="text-white">Email</FormLabel>
-                      <Input
-                        id={`email-${field.name}`}
-                        name={field.name}
-                        type="email"
-                        inputMode="email"
-                        placeholder="Enter your email"
-                        className="bg-suku-surface border-suku-border text-white w-full"
-                        autoComplete="email"
-                        autoCapitalize="none"
-                        autoCorrect="off"
-                        spellCheck={false}
-                        aria-invalid={!!fieldState.error}
-                        autoFocus
-                        value={field.value ?? ""}
-                        onChange={(event) => field.onChange(event.target.value)}
-                        onBlur={field.onBlur}
-                        ref={field.ref}
-                      />
+                      <FormControl>
+                        <Input
+                          id={`email-${field.name}`}
+                          type="email"
+                          placeholder="Enter your email"
+                          className="bg-suku-surface border-suku-border text-white"
+                          autoComplete="email"
+                          aria-invalid={!!fieldState.error}
+                          {...field}
+                        />
+                      </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
