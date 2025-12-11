@@ -188,16 +188,16 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                   render={({ field, fieldState }) => (
                     <FormItem>
                       <FormLabel className="text-white">Email</FormLabel>
-                      <div className="relative">
-                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none z-10" />
-                        <FormControl>
+                      <FormControl>
+                        <div className="relative w-full">
+                          <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none z-0" />
                           <Input
                             id={`login-email-${field.name}`}
                             name={field.name}
                             type="email"
                             inputMode="email"
                             placeholder="Enter your email"
-                            className="pl-10 bg-suku-surface border-suku-border text-white pointer-events-auto relative z-10"
+                            className="pl-10 bg-suku-surface border-suku-border text-white relative z-10 w-full"
                             autoComplete="email"
                             autoCapitalize="none"
                             autoCorrect="off"
@@ -208,8 +208,8 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                             onBlur={field.onBlur}
                             ref={field.ref}
                           />
-                        </FormControl>
-                      </div>
+                        </div>
+                      </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -315,16 +315,16 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                   render={({ field, fieldState }) => (
                     <FormItem>
                       <FormLabel className="text-white">Email</FormLabel>
-                      <div className="relative">
-                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none z-10" />
-                        <FormControl>
+                      <FormControl>
+                        <div className="relative w-full">
+                          <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none z-0" />
                           <Input
                             id={`email-${field.name}`}
                             name={field.name}
                             type="email"
                             inputMode="email"
                             placeholder="Enter your email"
-                            className="pl-10 bg-suku-surface border-suku-border text-white pointer-events-auto relative z-10"
+                            className="pl-10 bg-suku-surface border-suku-border text-white relative z-10 w-full"
                             autoComplete="email"
                             autoCapitalize="none"
                             autoCorrect="off"
@@ -336,8 +336,8 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                             onBlur={field.onBlur}
                             ref={field.ref}
                           />
-                        </FormControl>
-                      </div>
+                        </div>
+                      </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
