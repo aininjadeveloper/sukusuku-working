@@ -122,7 +122,7 @@ export default function Account() {
                   </h3>
                   <p className="text-gray-400">{user.email}</p>
                   <p className="text-sm text-gray-500 mt-1">
-                    Member since {new Date(user.createdAt).toLocaleDateString()}
+                    Member since {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'Unknown'}
                   </p>
                 </div>
               </div>
@@ -197,13 +197,13 @@ export default function Account() {
                 <div className="flex justify-between items-center">
                   <span className="text-gray-400">Penora Credits</span>
                   <Badge className="bg-blue-600 text-white">
-                    {credits?.penoraCredits || user.penoraCredits || "0"}
+                    {credits?.penoraCredits ?? user?.penoraCredits ?? 0}
                   </Badge>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-gray-400">ImageGene Credits</span>
                   <Badge className="bg-purple-600 text-white">
-                    {credits?.imagegeneCredits || user.imagegeneCredits || "0"}
+                    {credits?.imagegeneCredits ?? user?.imagegeneCredits ?? 0}
                   </Badge>
                 </div>
                 <div className="flex justify-between items-center">
@@ -212,7 +212,7 @@ export default function Account() {
                     variant="outline"
                     className="border-gray-600 text-gray-300"
                   >
-                    {credits?.totalCreditsUsed || user.totalCreditsUsed || "0"}
+                    {credits?.totalCreditsUsed ?? user?.totalCreditsUsed ?? 0}
                   </Badge>
                 </div>
               </div>
