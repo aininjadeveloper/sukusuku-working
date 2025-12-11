@@ -295,24 +295,25 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                   />
                 </div>
 
-                <div className="space-y-2">
-                  <label htmlFor="signup-email" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-white">
-                    Email
-                  </label>
-                  <input
-                    id="signup-email"
-                    type="text"
-                    placeholder="Enter your email"
-                    className="flex h-10 w-full rounded-md border px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm bg-suku-surface border-suku-border text-white"
-                    autoComplete="email"
-                    {...registerForm.register("email")}
-                  />
-                  {registerForm.formState.errors.email && (
-                    <p className="text-sm font-medium text-destructive">
-                      {registerForm.formState.errors.email.message}
-                    </p>
+                <FormField
+                  control={registerForm.control}
+                  name="email"
+                  render={({ field, fieldState }) => (
+                    <FormItem>
+                      <FormLabel className="text-white">Email</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Enter your email"
+                          className="bg-suku-surface border-suku-border text-white"
+                          autoComplete="email"
+                          aria-invalid={!!fieldState.error}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
                   )}
-                </div>
+                />
                 
                 <FormField
                   control={registerForm.control}
