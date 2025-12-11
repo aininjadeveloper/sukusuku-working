@@ -197,10 +197,16 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                             type="email"
                             inputMode="email"
                             placeholder="Enter your email"
-                            className="pl-10 bg-suku-surface border-suku-border text-white pointer-events-auto"
+                            className="pl-10 bg-suku-surface border-suku-border text-white pointer-events-auto relative z-10"
                             autoComplete="email"
+                            autoCapitalize="none"
+                            autoCorrect="off"
+                            spellCheck={false}
                             aria-invalid={!!fieldState.error}
-                            {...field}
+                            value={field.value ?? ""}
+                            onChange={(event) => field.onChange(event.target.value)}
+                            onBlur={field.onBlur}
+                            ref={field.ref}
                           />
                         </FormControl>
                       </div>
@@ -318,11 +324,17 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                             type="email"
                             inputMode="email"
                             placeholder="Enter your email"
-                            className="pl-10 bg-suku-surface border-suku-border text-white pointer-events-auto"
+                            className="pl-10 bg-suku-surface border-suku-border text-white pointer-events-auto relative z-10"
                             autoComplete="email"
+                            autoCapitalize="none"
+                            autoCorrect="off"
+                            spellCheck={false}
                             aria-invalid={!!fieldState.error}
                             autoFocus
-                            {...field}
+                            value={field.value ?? ""}
+                            onChange={(event) => field.onChange(event.target.value)}
+                            onBlur={field.onBlur}
+                            ref={field.ref}
                           />
                         </FormControl>
                       </div>
