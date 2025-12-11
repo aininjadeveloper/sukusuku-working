@@ -190,7 +190,6 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                       <FormLabel className="text-white">Email</FormLabel>
                       <FormControl>
                         <Input
-                          id={`login-email-${field.name}`}
                           type="email"
                           placeholder="Enter your email"
                           className="bg-suku-surface border-suku-border text-white"
@@ -214,7 +213,6 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                         <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none z-10" />
                         <FormControl>
                           <Input
-                            id={`login-password-${field.name}`}
                             type={showPassword ? "text" : "password"}
                             placeholder="Enter your password"
                             className="pl-10 pr-10 bg-suku-surface border-suku-border text-white"
@@ -262,7 +260,6 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                           <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none z-10" />
                           <FormControl>
                             <Input
-                              id={`firstName-${field.name}`}
                               placeholder="First name"
                               className="pl-10 bg-suku-surface border-suku-border text-white"
                               autoComplete="given-name"
@@ -284,7 +281,6 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                         <FormLabel className="text-white">Last Name</FormLabel>
                         <FormControl>
                           <Input
-                            id={`lastName-${field.name}`}
                             placeholder="Last name"
                             className="bg-suku-surface border-suku-border text-white"
                             autoComplete="family-name"
@@ -306,7 +302,6 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                       <FormLabel className="text-white">Email</FormLabel>
                       <FormControl>
                         <Input
-                          id={`email-${field.name}`}
                           type="email"
                           placeholder="Enter your email"
                           className="bg-suku-surface border-suku-border text-white"
@@ -330,7 +325,6 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                         <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none z-10" />
                         <FormControl>
                           <Input
-                            id={`password-${field.name}`}
                             type={showPassword ? "text" : "password"}
                             placeholder="Create a password"
                             className="pl-10 pr-10 bg-suku-surface border-suku-border text-white"
@@ -363,7 +357,6 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                         <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none z-10" />
                         <FormControl>
                           <Input
-                            id={`confirmPassword-${field.name}`}
                             type={showConfirmPassword ? "text" : "password"}
                             placeholder="Confirm your password"
                             className="pl-10 pr-10 bg-suku-surface border-suku-border text-white"
