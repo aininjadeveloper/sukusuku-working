@@ -46,7 +46,7 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
 
   const registerForm = useForm<RegisterInput>({
     resolver: zodResolver(registerSchema),
-    mode: "onChange",
+    mode: "onBlur",
     defaultValues: {
       email: "",
       password: "",
@@ -190,7 +190,7 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                       <FormLabel className="text-white">Email</FormLabel>
                       <FormControl>
                         <Input
-                          type="email"
+                          type="text"
                           placeholder="Enter your email"
                           className="bg-suku-surface border-suku-border text-white"
                           autoComplete="email"
@@ -303,7 +303,7 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                       <FormLabel className="text-white">Email</FormLabel>
                       <FormControl>
                         <Input
-                          type="email"
+                          type="text"
                           placeholder="Enter your email"
                           className="bg-suku-surface border-suku-border text-white"
                           autoComplete="email"
