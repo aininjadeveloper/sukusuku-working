@@ -195,6 +195,8 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                           className="bg-suku-surface border-suku-border text-white"
                           autoComplete="email"
                           aria-invalid={!!fieldState.error}
+                          readOnly={false}
+                          disabled={false}
                           {...field}
                         />
                       </FormControl>
@@ -307,6 +309,8 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                           className="bg-suku-surface border-suku-border text-white"
                           autoComplete="email"
                           aria-invalid={!!fieldState.error}
+                          readOnly={false}
+                          disabled={false}
                           {...field}
                         />
                       </FormControl>
