@@ -193,6 +193,7 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                         <FormControl>
                           <Input
                             id={`login-email-${field.name}`}
+                            name={field.name}
                             type="email"
                             placeholder="Enter your email"
                             className="pl-10 bg-suku-surface border-suku-border text-white"
@@ -312,11 +313,13 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                         <FormControl>
                           <Input
                             id={`email-${field.name}`}
+                            name={field.name}
                             type="email"
                             placeholder="Enter your email"
                             className="pl-10 bg-suku-surface border-suku-border text-white"
                             autoComplete="email"
                             aria-invalid={!!fieldState.error}
+                            autoFocus
                             {...field}
                           />
                         </FormControl>
