@@ -61,7 +61,7 @@ export class AuthService {
       passwordHash,
       authProvider: 'email',
       isEmailVerified: false,
-      penoraCredits: 100,
+      penoraCredits: 50,
       imagegeneCredits: 50,
       totalCreditsUsed: 0,
     }).returning();
