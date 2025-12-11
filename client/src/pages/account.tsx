@@ -41,7 +41,9 @@ export default function Account() {
   } = useQuery<UserCredits>({
     queryKey: ["/api/user/credits"],
     enabled: !!user,
-    refetchInterval: 30000, // Auto-refresh every 30 seconds
+    refetchInterval: 5000, // Auto-refresh every 5 seconds
+    refetchOnWindowFocus: true, // Refresh when window regains focus
+    staleTime: 0, // Always consider data stale for immediate refresh
   });
 
   const logoutMutation = useMutation({
