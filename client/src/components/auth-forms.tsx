@@ -188,9 +188,9 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                   render={({ field, fieldState }) => (
                     <FormItem>
                       <FormLabel className="text-white">Email</FormLabel>
-                      <FormControl>
-                        <div className="relative">
-                          <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none z-10" />
+                      <div className="relative">
+                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none z-10" />
+                        <FormControl>
                           <Input
                             id={`login-email-${field.name}`}
                             type="email"
@@ -200,8 +200,8 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                             aria-invalid={!!fieldState.error}
                             {...field}
                           />
-                        </div>
-                      </FormControl>
+                        </FormControl>
+                      </div>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -213,9 +213,9 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                   render={({ field, fieldState }) => (
                     <FormItem>
                       <FormLabel className="text-white">Password</FormLabel>
-                      <FormControl>
-                        <div className="relative">
-                          <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none z-10" />
+                      <div className="relative">
+                        <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none z-10" />
+                        <FormControl>
                           <Input
                             id={`login-password-${field.name}`}
                             type={showPassword ? "text" : "password"}
@@ -225,16 +225,16 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                             aria-invalid={!!fieldState.error}
                             {...field}
                           />
-                          <button
-                            type="button"
-                            onClick={() => setShowPassword(!showPassword)}
-                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white z-10"
-                            tabIndex={-1}
-                          >
-                            {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                          </button>
-                        </div>
-                      </FormControl>
+                        </FormControl>
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white z-10"
+                          tabIndex={-1}
+                        >
+                          {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                        </button>
+                      </div>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -261,9 +261,9 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                     render={({ field, fieldState }) => (
                       <FormItem>
                         <FormLabel className="text-white">First Name</FormLabel>
-                        <FormControl>
-                          <div className="relative">
-                            <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none z-10" />
+                        <div className="relative">
+                          <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none z-10" />
+                          <FormControl>
                             <Input
                               id={`firstName-${field.name}`}
                               placeholder="First name"
@@ -272,8 +272,8 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                               aria-invalid={!!fieldState.error}
                               {...field}
                             />
-                          </div>
-                        </FormControl>
+                          </FormControl>
+                        </div>
                         <FormMessage />
                       </FormItem>
                     )}
@@ -307,9 +307,9 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                   render={({ field, fieldState }) => (
                     <FormItem>
                       <FormLabel className="text-white">Email</FormLabel>
-                      <FormControl>
-                        <div className="relative">
-                          <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none z-10" />
+                      <div className="relative">
+                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none z-10" />
+                        <FormControl>
                           <Input
                             id={`email-${field.name}`}
                             type="email"
@@ -319,8 +319,8 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                             aria-invalid={!!fieldState.error}
                             {...field}
                           />
-                        </div>
-                      </FormControl>
+                        </FormControl>
+                      </div>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -332,9 +332,9 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                   render={({ field, fieldState }) => (
                     <FormItem>
                       <FormLabel className="text-white">Password</FormLabel>
-                      <FormControl>
-                        <div className="relative">
-                          <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none z-10" />
+                      <div className="relative">
+                        <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none z-10" />
+                        <FormControl>
                           <Input
                             id={`password-${field.name}`}
                             type={showPassword ? "text" : "password"}
@@ -344,16 +344,16 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                             aria-invalid={!!fieldState.error}
                             {...field}
                           />
-                          <button
-                            type="button"
-                            onClick={() => setShowPassword(!showPassword)}
-                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white z-10"
-                            tabIndex={-1}
-                          >
-                            {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                          </button>
-                        </div>
-                      </FormControl>
+                        </FormControl>
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white z-10"
+                          tabIndex={-1}
+                        >
+                          {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                        </button>
+                      </div>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -365,9 +365,9 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                   render={({ field, fieldState }) => (
                     <FormItem>
                       <FormLabel className="text-white">Confirm Password</FormLabel>
-                      <FormControl>
-                        <div className="relative">
-                          <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none z-10" />
+                      <div className="relative">
+                        <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none z-10" />
+                        <FormControl>
                           <Input
                             id={`confirmPassword-${field.name}`}
                             type={showConfirmPassword ? "text" : "password"}
@@ -377,16 +377,16 @@ export function AuthForms({ onSuccess, onClose }: AuthFormsProps) {
                             aria-invalid={!!fieldState.error}
                             {...field}
                           />
-                          <button
-                            type="button"
-                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white z-10"
-                            tabIndex={-1}
-                          >
-                            {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                          </button>
-                        </div>
-                      </FormControl>
+                        </FormControl>
+                        <button
+                          type="button"
+                          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white z-10"
+                          tabIndex={-1}
+                        >
+                          {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                        </button>
+                      </div>
                       <FormMessage />
                     </FormItem>
                   )}
